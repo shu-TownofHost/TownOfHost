@@ -30,6 +30,7 @@ namespace TownOfHost
 $@"{main.getLang(lang.roleListStart)}
 {main.getLang(lang.Sidekick)}: {getOnOff(main.currentShapeshifter == ShapeshifterRoles.Sidekick)}
 {main.getLang(lang.Vampire)}: {getOnOff(main.currentImpostor == ImpostorRoles.Vampire)}
+{main.getLang(lang.Bountyhunter)}: {getOnOff(main.currentImpostor == ImpostorRoles.Bountyhunter)}
 {main.getLang(lang.Jester)}: {getOnOff(main.currentScientist == ScientistRoles.Jester)}
 {main.getLang(lang.Madmate)}: {getOnOff(main.currentEngineer == EngineerRoles.Madmate)}
 {main.getLang(lang.Bait)}: {getOnOff(main.currentScientist == ScientistRoles.Bait)}
@@ -49,6 +50,7 @@ $@"{main.getLang(lang.roleListStart)}
                     canceled = true;
                     main.SendToAll("現在有効になっている設定の説明:");
                     if(main.currentImpostor == ImpostorRoles.Vampire){ main.SendToAll(main.roleTexts["vampire"]); }
+                    if(main.currentImpostor == ImpostorRoles.Bountyhunter){ main.SendToAll(main.roleTexts["Bountyhunter"]); }
                     if(main.currentShapeshifter == ShapeshifterRoles.Sidekick){ main.SendToAll(main.roleTexts["sidekick"]); }
                     if(main.currentEngineer == EngineerRoles.Madmate){ main.SendToAll(main.roleTexts["madmate"]); }
                     if(main.currentEngineer == EngineerRoles.Terrorist){ main.SendToAll(main.roleTexts["terrorist"]); }
@@ -65,7 +67,7 @@ $@"{main.getLang(lang.roleListStart)}
                     canceled = true;
                     if (arg == "")
                     {
-                        __instance.AddChat(PlayerControl.LocalPlayer, "使用可能な引数: jester, madmate, bait, terrorist, sidekick, vampire, fox, troll");
+                        __instance.AddChat(PlayerControl.LocalPlayer, "使用可能な引数: jester, madmate, bait, terrorist, sidekick, vampire, Bountyhunter, fox, troll");
                     }
                     else if (arg == "jester")
                     {
@@ -90,6 +92,10 @@ $@"{main.getLang(lang.roleListStart)}
                     else if (arg == "vampire")
                     {
                         main.SendToAll(main.roleTexts["vampire"]);
+                    }
+                    else if (arg == "Bountyhunter")
+                    {
+                        main.SendToAll(main.roleTexts["Bountyhunter"]);
                     }
                     else if (arg == "fox")
                     {
