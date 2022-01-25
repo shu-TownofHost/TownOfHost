@@ -36,6 +36,7 @@ namespace TownOfHost
                         OptionPages.Jester,
                         OptionPages.Terrorist,
                         OptionPages.Bait,
+                        OptionPages.Bountyhunter,
                         OptionPages.AdvancedRoleOptions
                     },
                     OptionPages.basepage
@@ -79,6 +80,13 @@ namespace TownOfHost
                         () => "<color=#00bfff>Bait</color>: " + main.getOnOff(main.currentScientist == ScientistRoles.Bait),
                         true,
                         () => {main.ToggleRole(ScientistRoles.Bait);},
+                        new List<OptionPages>(){},
+                        OptionPages.roles
+                    )},
+                    {OptionPages.Bountyhunter, new PageObject(
+                        () => "<color=#ff0000>Bountyhunter</color>: "+main.getOnOff(main.currentImpostor == ImpostorRoles.Bountyhunter),
+                        true,
+                        () => {main.ToggleRole(ImpostorRoles.Bountyhunter);},
                         new List<OptionPages>(){},
                         OptionPages.roles
                     )},
@@ -432,6 +440,7 @@ namespace TownOfHost
                 Terrorist,
                 Sidekick,
                 Vampire,
+                Bountyhunter,
                 VampireOptions,
                 AdvancedRoleOptions,
                     VampireKillDelay,
