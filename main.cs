@@ -45,6 +45,8 @@ namespace TownOfHost
         public static ConfigEntry<string> SidekickInfo { get; private set; }
         public static ConfigEntry<string> Vampire { get; private set; }
         public static ConfigEntry<string> VampireInfo { get; private set; }
+        public static ConfigEntry<string> Bountyhunter { get; private set;}
+        public static ConfigEntry<string> BountyhunterInfo { get; private set; }
         //Client Options
         public static ConfigEntry<bool> HideCodes {get; private set;}
         public static ConfigEntry<bool> JapaneseRoleName {get; private set;}
@@ -139,6 +141,12 @@ namespace TownOfHost
             return false;
         }
 
+        public static bool isBountyhunter(PlayerControl target)
+        {
+            if (target.Data.Role.Role == RoleTypes.Impostor && currentImpostor == ImpostorRoles.Bountyhunter)
+                return true;
+            return false;
+        }
         public static void ToggleRole(ScientistRoles role)
         {
             currentScientist = role == currentScientist ? ScientistRoles.Default : role;
@@ -218,6 +226,10 @@ namespace TownOfHost
                         case ImpostorRoles.Vampire:
                             RoleText = "Vampire";
                             TextColor = VampireColor;
+                            break;
+                        case ImpostorRoles.Bountyhunter:
+                            RoleText = "Bountyhunter";
+                            TextColor = Palette.ImpostorRed;
                             break;
                         default:
                             RoleText = "Invalid Impostor";
@@ -437,6 +449,8 @@ namespace TownOfHost
             SidekickInfo = Config.Bind("Lang", "SidekickInfo", "You are Sidekick");
             Vampire = Config.Bind("Lang", "VampireName", "Vampire");
             VampireInfo = Config.Bind("Lang", "VampireInfo", "Kill all crewmates with your bites");
+            Bountyhunter = Config.Bind("Lang","BountyhunterName","Bountyhunter");
+            BountyhunterInfo = Config.Bind("Lang","BountyhunterInfo","Hunt your Bounty down");
 
             //Client Options
             HideCodes = Config.Bind("Client Options", "Hide Game Codes", false);
@@ -507,7 +521,9 @@ namespace TownOfHost
                 {lang.Sidekick, Sidekick.Value},
                 {lang.SidekickInfo, SidekickInfo.Value},
                 {lang.Vampire, Vampire.Value},
-                {lang.VampireInfo, VampireInfo.Value}
+                {lang.VampireInfo, VampireInfo.Value},
+                {lang.Bountyhunter,Bountyhunter.Value},
+                {lang.BountyhunterInfo,BountyhunterInfo.Value}
             };
 
             roleTexts = new Dictionary<string, string>(){
@@ -517,6 +533,7 @@ namespace TownOfHost
                 {"terrorist", "Terrorist(Engineer):自身のタスクを全て完了させた状態で死亡したときに単独勝利となる第三陣営の役職。死因はキルと追放のどちらでもよい。タスクを完了させずに死亡したり、死亡しないまま試合が終了すると敗北する。"},
                 {"sidekick", "Sidekick(Shapeshifter):初期状態でベントやサボタージュ、変身は可能だが、キルはできない。Sidekickではないインポスターが全員死亡すると、Sidekickもキルが可能となる。"},
                 {"vampire", "Vampire(Impostor):キルボタンを押してから10秒経って実際にキルが発生する役職。キルをしたときのテレポートは発生しない。また、キルボタンを押してから10秒経つまでに会議が始まるとその瞬間にキルが発生する。"},
+                {"Bountyhunter","Bountyhunter(Impostor):守護天使のバリアが見えているクルーをキルするとキルクールが10分の１になる役職。逆にバリアがないクルーをキルするとキルクールが２倍になる。"},
                 {"fox", "Fox(HideAndSeek):Trollを除くいずれかの陣営が勝利したときに生き残っていれば追加勝利となる。"},
                 {"troll", "Troll(HideAndSeek):インポスターにキルされたときに単独勝利となる。この場合、Foxが生き残っていてもFoxは追加勝利することができない"}
             };
@@ -551,7 +568,9 @@ namespace TownOfHost
         Sidekick,
         SidekickInfo,
         Vampire,
-        VampireInfo
+        VampireInfo,
+        Bountyhunter,
+        BountyhunterInfo
     }
     //WinData
     public enum CustomWinner
@@ -576,7 +595,8 @@ namespace TownOfHost
     public enum ImpostorRoles
     {
         Default = 0,
-        Vampire
+        Vampire,
+        Bountyhunter
     }
     public enum ShapeshifterRoles
     {
