@@ -548,6 +548,7 @@ namespace TownOfHost
             Harmony.PatchAll();
         }
     }
+    
     //Lang-enum
     public enum lang
     {
@@ -621,4 +622,6 @@ namespace TownOfHost
         Released = 0,
         Beta = 1
     }
+    
+ 
 }

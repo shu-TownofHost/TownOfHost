@@ -86,6 +86,7 @@ namespace TownOfHost
             {
                 TaskTextPrefix =  "<color=#ff0000>"+ main.getLang(lang.Bountyhunter) + "</color>\r\n" +
                 "<color=#ff0000>" + main.getLang(lang.BountyhunterInfo) + "</color>\r\n";
+            }
             if (!__instance.TaskText.text.Contains(TaskTextPrefix))
             {
                 __instance.TaskText.text = TaskTextPrefix + "\r\n" + __instance.TaskText.text;
@@ -157,5 +158,4 @@ namespace TownOfHost
             return SystemType.ToString() + "(" + ((SystemTypes)SystemType).ToString() + ")\r\n" + amount;
         }
     }
-}
 }
