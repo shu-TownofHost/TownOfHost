@@ -82,6 +82,10 @@ namespace TownOfHost
                 TaskTextPrefix = "<color=#a557a5>" + main.getLang(lang.Vampire) + "</color>\r\n" +
                 "<color=#a557a5>" + main.getLang(lang.VampireInfo) + "</color>\r\n";
             }
+            if (main.isBountyhunter(PlayerControl.LocalPlayer))
+            {
+                TaskTextPrefix =  "<color=#ff0000>"+ main.getLang(lang.Bountyhunter) + "</color>\r\n" +
+                "<color=#ff0000>" + main.getLang(lang.BountyhunterInfo) + "</color>\r\n";
             if (!__instance.TaskText.text.Contains(TaskTextPrefix))
             {
                 __instance.TaskText.text = TaskTextPrefix + "\r\n" + __instance.TaskText.text;
@@ -153,4 +157,5 @@ namespace TownOfHost
             return SystemType.ToString() + "(" + ((SystemTypes)SystemType).ToString() + ")\r\n" + amount;
         }
     }
+}
 }

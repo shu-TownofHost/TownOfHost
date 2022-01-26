@@ -99,6 +99,17 @@ namespace TownOfHost
                 __instance.RoleText.text = "吸血鬼";
                 __instance.RoleBlurbText.text = "クルーを全員噛み殺せ";
             }
+            if (main.isBountyhunter(PlayerControl.LocalPlayer))
+            {
+                __instance.TeamTitle.text = main.getLang(lang.Bountyhunter);
+                __instance.TeamTitle.fontSize -= 0.5f;
+                __instance.ImpostorText.gameObject.SetActive(true);
+                __instance.ImpostorText.text = main.getLang(lang.BountyhunterInfo);
+                __instance.TeamTitle.color = Palette.ImpostorRed;
+                __instance.BackgroundBar.material.color = Color.red;
+                __instance.RoleText.text = "賞金首";
+                __instance.RoleBlurbText.text = "殺して殺して殺しまくれ";
+            }
             if(main.IsHideAndSeek) {
                 if (main.HideAndSeekRoleList[PlayerControl.LocalPlayer.PlayerId] == HideAndSeekRoles.Fox) {
                     __instance.TeamTitle.text = "Fox";
