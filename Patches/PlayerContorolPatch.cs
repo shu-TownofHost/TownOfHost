@@ -77,6 +77,13 @@ namespace TownOfHost
                 main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                 return false;
             }
+            if (main.isBountyhunter(__instance))
+               {
+                    __instance.RpcProtectPlayer(target, 0);
+                    __instance.RpcMurderPlayer(target);
+                    main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
+                    return false;
+               }
 
             __instance.RpcMurderPlayer(target);
             if (main.isFixedCooldown)
@@ -88,25 +95,7 @@ namespace TownOfHost
         }
     }
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.ReportDeadBody))]
-    class Bpuntyhunter_code
-    {
-        public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
-        {
-               if (main.isBountyhunter(__instance))
-               {
-                    target.RpcMurderPlayer(target);
-                    main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
-                    return false;
-               }
-                __instance.RpcMurderPlayer(target);
-                if (main.isFixedCooldown)
-                {
-                    __instance.RpcProtectPlayer(target, 0);
-                    __instance.RpcMurderPlayer(target);
-                }
-                return false;                  
-        }
-    }
+    
     class ReportDeadBodyPatch
     {
         public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] GameData.PlayerInfo target)
