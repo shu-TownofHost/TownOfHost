@@ -92,14 +92,12 @@ namespace TownOfHost
     {
         public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
         {
-            if (main.isBountyhunter(__instance))
-            {
-               if (AmongUsClient.Instance.AmHost)
-               {
-                    var rand = new System.Random();
-                    var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];  
-                    __instance.RpcProtectPlayer(player, 0);
-               }
+            if (main.isBountyhunter(__instance) && !main.isBait(target))
+            { //キルキャンセル&自爆処理
+                __instance.RpcProtectPlayer(target, 0);
+                __instance.RpcMurderPlayer(target);
+                main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
+                return false;
             }
             return false;
         }
