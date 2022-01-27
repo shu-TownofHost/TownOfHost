@@ -12,10 +12,12 @@ using UnhollowerBaseLib;
 using TownOfHost;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Runtime;
 
 namespace TownOfHost
 {
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.MurderPlayer))]
+    [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.RpcVotingComplete))]
     class MurderPlayerPatch
     {
         public static void Postfix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
@@ -92,8 +94,12 @@ namespace TownOfHost
         {
             if (main.isBountyhunter(__instance))
             {
-                __instance.RpcProtectPlayer(target, 0);
-                __instance.RpcMurderPlayer(target);
+               if (AmongUsClient.Instance.AmHost)
+               {
+                    var rand = new System.Random();
+                    var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];  
+                    __instance.RpcProtectPlayer(player, 0);
+               }
             }
             return false;
         }

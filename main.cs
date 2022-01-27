@@ -336,7 +336,7 @@ namespace TownOfHost
         public static ImpostorRoles currentImpostor;
         public static ShapeshifterRoles currentShapeshifter;
         public static Dictionary<byte, (byte, float)> BitPlayers = new Dictionary<byte, (byte, float)>();
-        public static Dictionary<byte, (byte, float)> Bountytarget = new Dictionary<byte, (byte, float)>();
+        public static byte BountytargetID {get; set;}
         public static byte ExiledJesterID;
         public static byte WonTerroristID;
         public static bool CustomWinTrigger;
