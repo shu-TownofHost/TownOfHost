@@ -89,7 +89,7 @@ namespace TownOfHost
             __instance.RpcMurderPlayer(target);
             if (main.isFixedCooldown)
             {
-                __instance.MurderPlayer(target);
+                __instance.RpcMurderPlayer(target);
             }
 
             if (main.isFixedCooldown)
