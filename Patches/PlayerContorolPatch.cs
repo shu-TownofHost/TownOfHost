@@ -87,10 +87,14 @@ namespace TownOfHost
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                     return false;
                }
-            
+            if (main.isBountyhunter(__instance) && main.isFixedCooldown && !UseDoubleCooldown)
+            {
+                __instance.RpcProtectPlayer(target, 0);
+                __instance.RpcMurderPlayer(target);
+            }
              __instance.RpcMurderPlayer(target);
 
-            if (main.isFixedCooldown && !UseDoubleCooldown)
+            if (main.isFixedCooldown)
             {
                 __instance.RpcProtectPlayer(target, 0);
                 __instance.RpcMurderPlayer(target);
