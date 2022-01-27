@@ -79,7 +79,9 @@ namespace TownOfHost
             }
             if (main.isBountyhunter(__instance))
                {
-                    __instance.RpcProtectPlayer(target, 0);
+                    var rand = new System.Random();
+                    var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                    player.RpcProtectPlayer(target, 0);
                     __instance.RpcMurderPlayer(target);
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                     return false;
