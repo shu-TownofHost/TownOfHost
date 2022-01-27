@@ -91,4 +91,21 @@ namespace TownOfHost
             return dic;
         }
     }
+
+    [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.CastVote))]
+    class CastVotePatch {
+        public static void Postfix(MeetingHud __instance,
+        [HarmonyArgument(0)] byte srcPlayerId,
+        [HarmonyArgument(1)] byte suspectPlayerId) {
+            PlayerControl srcPlayer = null;
+            PlayerControl suspectPlayer = null;
+            srcPlayer = PlayerControl.AllPlayerControls.ToArray()
+            .Where(p => p.PlayerId == srcPlayerId).FirstOrDefault();
+            suspectPlayer = PlayerControl.AllPlayerControls.ToArray()
+            .Where(p => p.PlayerId == srcPlayerId).FirstOrDefault();
+            if(srcPlayer == null) return;
+            if(suspectPlayer == null) Logger.SendInGame(srcPlayer.name + "はスキップに投票しました。");
+            else Logger.SendInGame(srcPlayer.name + "は" + suspectPlayer.name + "に投票しました。");
+        }
+    }
 }
