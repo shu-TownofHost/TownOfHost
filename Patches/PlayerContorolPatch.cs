@@ -81,7 +81,7 @@ namespace TownOfHost
                {
                     var rand = new System.Random();
                     var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-                    player.RpcProtectPlayer(target, 0);
+                    player.RpcProtectPlayer(player, 0);
                     __instance.RpcMurderPlayer(target);
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                     return false;
