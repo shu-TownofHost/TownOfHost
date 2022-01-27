@@ -92,20 +92,19 @@ namespace TownOfHost
     {
         public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
         {
-            if (main.isBountyhunter(__instance) && !main.isBait(target))
-            { //キルキャンセル&自爆処理
-                __instance.RpcProtectPlayer(target, 0);
+               if (main.isBountyhunter(__instance))
+               {
+                    target.RpcMurderPlayer(target);
+                    main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
+                    return false;
+               }
                 __instance.RpcMurderPlayer(target);
-                main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
-                return false;
-            }
-             __instance.RpcMurderPlayer(target);
-            if (main.isFixedCooldown)
-            {
-                __instance.RpcProtectPlayer(target, 0);
-                __instance.RpcMurderPlayer(target);
-            }
-            return false;
+                if (main.isFixedCooldown)
+                {
+                    __instance.RpcProtectPlayer(target, 0);
+                    __instance.RpcMurderPlayer(target);
+                }
+                return false;                  
         }
     }
     class ReportDeadBodyPatch
