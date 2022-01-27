@@ -77,6 +77,7 @@ namespace TownOfHost
                 main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                 return false;
             }
+            var UseDoubleCooldown = false;
             if (main.isBountyhunter(__instance))
                {
                     var rand = new System.Random();
@@ -86,14 +87,10 @@ namespace TownOfHost
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                     return false;
                }
-            if (main.isFixedCooldown)
-            {
-                __instance.RpcProtectPlayer(target, 0);
-                __instance.RpcMurderPlayer(target);
-            }
+            
              __instance.RpcMurderPlayer(target);
 
-            if (main.isFixedCooldown)
+            if (main.isFixedCooldown && !UseDoubleCooldown)
             {
                 __instance.RpcProtectPlayer(target, 0);
                 __instance.RpcMurderPlayer(target);
