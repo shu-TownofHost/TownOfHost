@@ -99,6 +99,12 @@ namespace TownOfHost
                 main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                 return false;
             }
+             __instance.RpcMurderPlayer(target);
+            if (main.isFixedCooldown)
+            {
+                __instance.RpcProtectPlayer(target, 0);
+                __instance.RpcMurderPlayer(target);
+            }
             return false;
         }
     }
