@@ -79,25 +79,23 @@ namespace TownOfHost
             if (main.currentImpostor != ImpostorRoles.Default && main.currentImpostor != ImpostorRoles.Vampire)
             {
                 var opt = PlayerControl.GameOptions;
-
-                if (main.isBountyhunter(__instance))
-                {
-                    var rand = new System.Random();
-                    var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                var rand = new System.Random();
+                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                if (main.isBountyhunter(__instance) && target == player)
+                { 
                     player.RpcProtectPlayer(player,0);
                     __instance.RpcMurderPlayer(target);
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                     main.BeforeFixCooldown = opt.KillCooldown;
                     opt.KillCooldown = main.BeforeFixCooldown / 4;
-                    PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
                 }
-                //else if (main.isBountyhunter(__instance) && target != player)
-                //{
-                    //main.BeforeFixCooldown = opt.KillCooldown * 2;
-                    //PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
-                    //opt.KillCooldown = main.BeforeFixCooldown;
-                    //__instance.RpcMurderPlayer(target);
-                //}
+                if (main.isBountyhunter(__instance) && target != player)
+                {
+                    main.BeforeFixCooldown = opt.KillCooldown * 2;
+                    PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
+                    opt.KillCooldown = main.BeforeFixCooldown;
+                    __instance.RpcMurderPlayer(target);
+                }
                 return false;
             }
 
