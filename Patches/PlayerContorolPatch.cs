@@ -94,8 +94,9 @@ namespace TownOfHost
                 {
                     __instance.RpcMurderPlayer(target);
                     main.BeforeFixCooldown = opt.KillCooldown;
+                    opt.KillCooldown = main.BeforeFixCooldown * 2;
                     PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
-                    opt.KillCooldown = main.BeforeFixCooldown * 4;
+                    opt.KillCooldown = main.BeforeFixCooldown / 2;
                 }
                 return false;
             }
