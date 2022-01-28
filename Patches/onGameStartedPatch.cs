@@ -34,6 +34,10 @@ namespace TownOfHost
                 }
                 main.SyncCustomSettingsRPC();
                 var opt = PlayerControl.GameOptions;
+                if (main.currentImpostor != ImpostorRoles.Default)
+                {
+                    opt.RoleOptions.ProtectionDurationSeconds = 1000f;
+                }
                 if (main.currentScientist != ScientistRoles.Default)
                 {
                     opt.RoleOptions.ScientistBatteryCharge = 0f;

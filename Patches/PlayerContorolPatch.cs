@@ -17,7 +17,6 @@ using System.Runtime;
 namespace TownOfHost
 {
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.MurderPlayer))]
-    [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.RpcVotingComplete))]
     class MurderPlayerPatch
     {
         public static void Postfix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
@@ -43,6 +42,7 @@ namespace TownOfHost
         }
     }
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.CheckMurder))]
+    [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.RpcClearVote))]
     class CheckMurderPatch
     {
         public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
@@ -77,23 +77,19 @@ namespace TownOfHost
                 main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                 return false;
             }
-            var UseDoubleCooldown = false;
-            if (main.isBountyhunter(__instance))
-               {
-                    var rand = new System.Random();
-                    var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-                    player.RpcProtectPlayer(player, 0);
+            if (AmongUsClient.Instance.AmHost && main.isBountyhunter(__instance))
+            {
+                var rand = new System.Random();
+                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                player.RpcProtectPlayer(player, 0);
+                if (main.isBountyhunter(__instance) && target == player)
+                {
                     __instance.RpcMurderPlayer(target);
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                     return false;
-               }
-            if (main.isBountyhunter(__instance) && main.isFixedCooldown && !UseDoubleCooldown)
-            {
-                __instance.RpcProtectPlayer(target, 0);
-                __instance.RpcMurderPlayer(target);
+                }
             }
-             __instance.RpcMurderPlayer(target);
-
+            
             if (main.isFixedCooldown)
             {
                 __instance.RpcProtectPlayer(target, 0);
