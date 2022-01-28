@@ -83,18 +83,21 @@ namespace TownOfHost
                 var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
                 if (main.isBountyhunter(__instance) && target == player)
                 { 
-                    player.RpcProtectPlayer(player,0);
+                    Logger.SendInGame("ターゲットをキルしました。");//デバッグメッセージ
                     __instance.RpcMurderPlayer(target);
-                    main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
-                    main.BeforeFixCooldown = opt.KillCooldown;
-                    opt.KillCooldown = main.BeforeFixCooldown / 12;
+                    __instance.RpcProtectPlayer(target, 0);
+                    __instance.RpcMurderPlayer(target);
+                    //main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
+                    //main.BeforeFixCooldown = opt.KillCooldown;
+                    //opt.KillCooldown = main.BeforeFixCooldown / 12;
                 }
                 if (main.isBountyhunter(__instance) && target != player)
                 {
-                    main.BeforeFixCooldown = opt.KillCooldown * 2;
-                    PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
-                    opt.KillCooldown = main.BeforeFixCooldown;
+                    Logger.SendInGame("ターゲット以外をキルしました。");//デバッグメッセージ
                     __instance.RpcMurderPlayer(target);
+                    //main.BeforeFixCooldown = opt.KillCooldown * 2;
+                    //PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
+                    //opt.KillCooldown = main.BeforeFixCooldown;
                 }
                 return false;
             }
