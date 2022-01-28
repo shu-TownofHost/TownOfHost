@@ -42,7 +42,6 @@ namespace TownOfHost
         }
     }
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.CheckMurder))]
-    [HarmonyPatch(typeof(MeetingHud), nameof(MeetingHud.RpcClearVote))]
     class CheckMurderPatch
     {
         public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
