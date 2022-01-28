@@ -78,25 +78,26 @@ namespace TownOfHost
             }
             if (main.currentImpostor != ImpostorRoles.Default && main.currentImpostor != ImpostorRoles.Vampire)
             {
+                var player = PlayerControl.LocalPlayer;
                 var opt = PlayerControl.GameOptions;
                 if (PlayerControl.LocalPlayer.Data.Role.Role == RoleTypes.GuardianAngel)
                 {
                     PlayerControl.LocalPlayer = __instance;
-                    __instance.RpcProtectPlayer(target,0);
+                    __instance.RpcProtectPlayer(player,0);
+                    if (main.isBountyhunter(__instance) && target == player)
+                    {
+                        __instance.RpcMurderPlayer(target);
+                        main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
+                        main.BeforeFixCooldown = opt.KillCooldown;
+                        opt.KillCooldown = main.BeforeFixCooldown / 4;
+                    }
+                    else
+                    {
+                        __instance.RpcMurderPlayer(target);
+                        main.BeforeFixCooldown = opt.KillCooldown;
+                        opt.KillCooldown = main.BeforeFixCooldown * 2;
+                    }
                     return false;
-                }
-                if (main.isBountyhunter(__instance))
-                {
-                    __instance.RpcMurderPlayer(target);
-                    main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
-                    main.BeforeFixCooldown = opt.KillCooldown;
-                    opt.KillCooldown = main.BeforeFixCooldown / 4;
-                }
-                else
-                {
-                    __instance.RpcMurderPlayer(target);
-                    main.BeforeFixCooldown = opt.KillCooldown;
-                    opt.KillCooldown = main.BeforeFixCooldown * 2;
                 }
                 return false;
             }
