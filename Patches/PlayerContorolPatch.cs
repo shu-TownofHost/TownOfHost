@@ -77,7 +77,7 @@ namespace TownOfHost
                 main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                 return false;
             }
-            if (AmongUsClient.Instance.AmHost && main.currentImpostor != ImpostorRoles.Default && main.currentImpostor != ImpostorRoles.Vampire)
+            if (main.currentImpostor != ImpostorRoles.Default && main.currentImpostor != ImpostorRoles.Vampire)
             {
                 var rand = new System.Random();
                 var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];

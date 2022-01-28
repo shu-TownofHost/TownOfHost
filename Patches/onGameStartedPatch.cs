@@ -38,6 +38,7 @@ namespace TownOfHost
                 {
                     opt.RoleOptions.ProtectionDurationSeconds = float.PositiveInfinity;
                     opt.RoleOptions.ImpostorsCanSeeProtect = true;
+                    opt.RoleOptions.GuardianAngelCooldown = 0.2f;
                 }
                 if (main.currentScientist != ScientistRoles.Default)
                 {
