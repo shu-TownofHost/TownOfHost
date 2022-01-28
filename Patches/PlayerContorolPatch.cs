@@ -78,10 +78,13 @@ namespace TownOfHost
             }
             if (main.currentImpostor != ImpostorRoles.Default && main.currentImpostor != ImpostorRoles.Vampire)
             {
-                var rand = new System.Random();
-                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-                player.RpcProtectPlayer(player, 0);
-                if (main.isBountyhunter(__instance) && target == player)
+                if (PlayerControl.LocalPlayer.Data.Role.Role == RoleTypes.GuardianAngel)
+                {
+                    PlayerControl.LocalPlayer = __instance;
+                    __instance.RpcProtectPlayer(target,0);
+                    return false;
+                }
+                if (main.isBountyhunter(__instance))
                 {
                     __instance.RpcMurderPlayer(target);
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
