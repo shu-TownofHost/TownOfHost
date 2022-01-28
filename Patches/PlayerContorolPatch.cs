@@ -78,6 +78,7 @@ namespace TownOfHost
             }
             if (main.currentImpostor != ImpostorRoles.Default && main.currentImpostor != ImpostorRoles.Vampire)
             {
+                var opt = PlayerControl.GameOptions;
                 if (PlayerControl.LocalPlayer.Data.Role.Role == RoleTypes.GuardianAngel)
                 {
                     PlayerControl.LocalPlayer = __instance;
@@ -88,19 +89,14 @@ namespace TownOfHost
                 {
                     __instance.RpcMurderPlayer(target);
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
-                    if (main.isTargetKillSuccess)
-                    {
-                        __instance.RpcMurderPlayer(target);
-                    }
-                    return false;
+                    main.BeforeFixCooldown = opt.KillCooldown;
+                    opt.KillCooldown = main.BeforeFixCooldown / 4;
                 }
                 else
                 {
                     __instance.RpcMurderPlayer(target);
-                     if (main.isTargetKillFailure)
-                     {
-                         __instance.RpcMurderPlayer(target);
-                     }
+                    main.BeforeFixCooldown = opt.KillCooldown;
+                    opt.KillCooldown = main.BeforeFixCooldown * 2;
                 }
                 return false;
             }

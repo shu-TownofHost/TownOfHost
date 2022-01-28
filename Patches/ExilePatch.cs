@@ -50,18 +50,6 @@ namespace TownOfHost
                     main.CheckTerroristWin(exiled);
                 }
             }
-            if (AmongUsClient.Instance.AmHost && main.isTargetKillFailure)
-            {
-                main.RefixCooldownDelay = main.BeforeFixCooldown - 3f;
-                PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
-                PlayerControl.LocalPlayer.RpcSyncSettings(PlayerControl.GameOptions);
-            }
-            if (AmongUsClient.Instance.AmHost && main.isTargetKillSuccess)
-            {
-                main.RefixCooldownDelay = main.BeforeFixCooldown - 3f;
-                PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
-                PlayerControl.LocalPlayer.RpcSyncSettings(PlayerControl.GameOptions);
-            }
             if (AmongUsClient.Instance.AmHost && main.isFixedCooldown)
             {
                 main.RefixCooldownDelay = main.BeforeFixCooldown - 3f;

@@ -21,30 +21,10 @@ namespace TownOfHost
             //ここより上、全員が実行する
             if (!AmongUsClient.Instance.AmHost) return;
             //ここより下、ホストのみが実行する
-            if (main.isTargetKillSuccess && PlayerControl.GameOptions.KillCooldown == main.BeforeFixCooldown)
-            {
-                if (main.RefixCooldownDelay <= 0)
-                {
-                    PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown / 4;
-                    PlayerControl.LocalPlayer.RpcSyncSettings(PlayerControl.GameOptions); ;
-                }
                 else
                 {
                     main.RefixCooldownDelay -= Time.fixedDeltaTime;
                 }
-            }
-            if (main.isTargetKillFailure && PlayerControl.GameOptions.KillCooldown == main.BeforeFixCooldown)
-            {
-                if (main.RefixCooldownDelay <= 0)
-                {
-                    PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown * 2;
-                    PlayerControl.LocalPlayer.RpcSyncSettings(PlayerControl.GameOptions); ;
-                }
-                else
-                {
-                    main.RefixCooldownDelay -= Time.fixedDeltaTime;
-                }
-            }
             if (main.isFixedCooldown && PlayerControl.GameOptions.KillCooldown == main.BeforeFixCooldown)
             {
                 if (main.RefixCooldownDelay <= 0)

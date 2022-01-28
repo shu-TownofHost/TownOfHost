@@ -99,8 +99,6 @@ namespace TownOfHost
         //これ変えたらmod名とかの色が変わる
         public static string modColor = "#00bfff";
         public static bool isFixedCooldown => currentImpostor == ImpostorRoles.Vampire;
-        public static bool isTargetKillSuccess => currentImpostor == ImpostorRoles.Bountyhunter;
-        public static bool isTargetKillFailure => currentImpostor == ImpostorRoles.Bountyhunter;
         public static float BeforeFixCooldown = 15f;
         public static float RefixCooldownDelay = 0f;
         public static int BeforeFixMeetingCooldown = 10;
