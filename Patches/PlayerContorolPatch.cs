@@ -79,11 +79,12 @@ namespace TownOfHost
             if (main.currentImpostor != ImpostorRoles.Default && main.currentImpostor != ImpostorRoles.Vampire)
             {
                 var opt = PlayerControl.GameOptions;
-                var rand = new System.Random();
-                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-                player.RpcProtectPlayer(player,0);
-                if (main.isBountyhunter(__instance) && target == player)
+
+                if (main.isBountyhunter(__instance))
                 {
+                    var rand = new System.Random();
+                    var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                    player.RpcProtectPlayer(player,0);
                     __instance.RpcMurderPlayer(target);
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                     main.BeforeFixCooldown = opt.KillCooldown;
