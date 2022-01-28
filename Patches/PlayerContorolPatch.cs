@@ -78,27 +78,23 @@ namespace TownOfHost
             }
             if (main.currentImpostor != ImpostorRoles.Default && main.currentImpostor != ImpostorRoles.Vampire)
             {
-                var player = PlayerControl.LocalPlayer;
                 var opt = PlayerControl.GameOptions;
-                if (PlayerControl.LocalPlayer.Data.Role.Role == RoleTypes.GuardianAngel)
+                var rand = new System.Random();
+                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                player.RpcProtectPlayer(player,0);
+                if (main.isBountyhunter(__instance) && target == player)
                 {
-                    PlayerControl.LocalPlayer = __instance;
-                    __instance.RpcProtectPlayer(player,0);
-                    if (main.isBountyhunter(__instance) && target == player)
-                    {
-                        __instance.RpcMurderPlayer(target);
-                        main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
-                        main.BeforeFixCooldown = opt.KillCooldown;
-                        opt.KillCooldown = main.BeforeFixCooldown / 4;
-                    }
-                    else
-                    {
-                        __instance.RpcMurderPlayer(target);
-                        main.BeforeFixCooldown = opt.KillCooldown;
-                        opt.KillCooldown = main.BeforeFixCooldown * 2;
-                    }
-                    return false;
+                    __instance.RpcMurderPlayer(target);
+                    main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
+                    main.BeforeFixCooldown = opt.KillCooldown;
+                    opt.KillCooldown = main.BeforeFixCooldown / 4;
                 }
+                //if (main.isBountyhunter(__instance))
+                //{
+                //__instance.RpcMurderPlayer(target);
+                //main.BeforeFixCooldown = opt.KillCooldown;
+                //opt.KillCooldown = main.BeforeFixCooldown * 2;
+                //}
                 return false;
             }
 
