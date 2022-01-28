@@ -77,20 +77,7 @@ namespace TownOfHost
                 main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                 return false;
             }
-            if (main.currentImpostor != ImpostorRoles.Default && main.currentImpostor != ImpostorRoles.Vampire)
-            {
-                var rand = new System.Random();
-                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-                player.RpcProtectPlayer(player, 0);
-                if (main.isBountyhunter(__instance) && target == player)
-                {
-                    player.RpcProtectPlayer(player, 0);
-                    __instance.RpcMurderPlayer(target);
-                    main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
-                    return false;
-                }
-                return false;
-            }
+            
             __instance.RpcMurderPlayer(target);
             if (main.isFixedCooldown)
             {
