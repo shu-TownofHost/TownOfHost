@@ -90,7 +90,6 @@ namespace TownOfHost
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                     if (main.isTargetKillSuccess)
                     {
-                        __instance.RpcProtectPlayer(target, 0);
                         __instance.RpcMurderPlayer(target);
                     }
                     return false;
