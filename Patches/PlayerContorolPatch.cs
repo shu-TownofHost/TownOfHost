@@ -87,7 +87,7 @@ namespace TownOfHost
                     __instance.RpcMurderPlayer(target);
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                     main.BeforeFixCooldown = opt.KillCooldown;
-                    opt.KillCooldown = main.BeforeFixCooldown / 12;
+                    opt.KillCooldown = main.BeforeFixCooldown / 4;
                     PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
                 }
                 //else if (main.isBountyhunter(__instance) && target != player)
