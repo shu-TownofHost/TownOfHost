@@ -90,7 +90,7 @@ namespace TownOfHost
                 }
                 return false;
             }
-            
+            __instance.RpcMurderPlayer(target);
             if (main.isFixedCooldown)
             {
                 __instance.RpcProtectPlayer(target, 0);
