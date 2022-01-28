@@ -84,6 +84,7 @@ namespace TownOfHost
                 player.RpcProtectPlayer(player, 0);
                 if (main.isBountyhunter(__instance) && target == player)
                 {
+                    player.RpcProtectPlayer(player, 0);
                     __instance.RpcMurderPlayer(target);
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
                     return false;
