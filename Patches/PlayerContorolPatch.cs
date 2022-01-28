@@ -98,7 +98,7 @@ namespace TownOfHost
                     //opt.KillCooldown = main.BeforeFixCooldown;
                     //__instance.RpcMurderPlayer(target);
                 //}
-                //return false;
+                return false;
             }
 
             
