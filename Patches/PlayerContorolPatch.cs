@@ -96,7 +96,6 @@ namespace TownOfHost
                     main.BeforeFixCooldown = opt.KillCooldown;
                     opt.KillCooldown = main.BeforeFixCooldown * 2;
                     PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
-                    opt.KillCooldown = main.BeforeFixCooldown / 2;
                 }
                 return false;
             }
