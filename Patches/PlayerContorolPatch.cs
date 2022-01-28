@@ -92,10 +92,10 @@ namespace TownOfHost
                 }
                 else if (main.isBountyhunter(__instance) && target != player)
                 {
-                __instance.RpcMurderPlayer(target);
-                main.BeforeFixCooldown = opt.KillCooldown;
-                opt.KillCooldown = main.BeforeFixCooldown * 4;
-                PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
+                    __instance.RpcMurderPlayer(target);
+                    main.BeforeFixCooldown = opt.KillCooldown;
+                    PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
+                    opt.KillCooldown = main.BeforeFixCooldown * 4;
                 }
                 return false;
             }
