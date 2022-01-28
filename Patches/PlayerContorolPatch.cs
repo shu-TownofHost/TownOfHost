@@ -88,13 +88,27 @@ namespace TownOfHost
                 {
                     __instance.RpcMurderPlayer(target);
                     main.BitPlayers.Add(target.PlayerId, (__instance.PlayerId, 0f));
+                    if (main.isTargetKillSuccess)
+                    {
+                        __instance.RpcProtectPlayer(target, 0);
+                        __instance.RpcMurderPlayer(target);
+                    }
                     return false;
+                }
+                else
+                {
+                    __instance.RpcMurderPlayer(target);
+                     if (main.isTargetKillFailure)
+                     {
+                         __instance.RpcMurderPlayer(target);
+                     }
                 }
                 return false;
             }
 
             
             __instance.RpcMurderPlayer(target);
+            
             if (main.isFixedCooldown)
             {
                 __instance.RpcProtectPlayer(target, 0);

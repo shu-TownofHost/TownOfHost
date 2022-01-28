@@ -137,6 +137,14 @@ namespace TownOfHost
                     }
                 }
             }
+            if (main.isTargetKillSuccess && AmongUsClient.Instance.AmHost)
+            {
+                PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
+            }
+            if (main.isTargetKillFailure && AmongUsClient.Instance.AmHost)
+            {
+                PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
+            }
             if (main.isFixedCooldown && AmongUsClient.Instance.AmHost)
             {
                 PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
@@ -150,6 +158,12 @@ namespace TownOfHost
             if(AmongUsClient.Instance.AmHost) {
                 if(main.IsHideAndSeek) {
                     PlayerControl.GameOptions.ImpostorLightMod = main.HideAndSeekImpVisionMin;
+                }
+                if(main.isTargetKillSuccess) {
+                    PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
+                }
+                if(main.isTargetKillFailure) {
+                    PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
                 }
                 if(main.isFixedCooldown) {
                     PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;

@@ -50,6 +50,16 @@ namespace TownOfHost
                     opt.RoleOptions.EngineerCooldown = 0.2f;
                     opt.RoleOptions.EngineerInVentMaxTime = float.PositiveInfinity;
                 }
+                if (main.isTargetKillSuccess)
+                {
+                    main.BeforeFixCooldown = opt.KillCooldown;
+                    opt.KillCooldown = main.BeforeFixCooldown * 2;
+                }
+                if (main.isTargetKillSuccess)
+                {
+                    main.BeforeFixCooldown = opt.KillCooldown;
+                    opt.KillCooldown = main.BeforeFixCooldown / 4;
+                }
                 if (main.isFixedCooldown)
                 {
                     main.BeforeFixCooldown = opt.KillCooldown;
