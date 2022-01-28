@@ -36,7 +36,8 @@ namespace TownOfHost
                 var opt = PlayerControl.GameOptions;
                 if (main.currentImpostor != ImpostorRoles.Default)
                 {
-                    opt.RoleOptions.ProtectionDurationSeconds = 1000f;
+                    opt.RoleOptions.ProtectionDurationSeconds = float.PositiveInfinity;
+                    opt.RoleOptions.ImpostorsCanSeeProtect = true;
                 }
                 if (main.currentScientist != ScientistRoles.Default)
                 {
