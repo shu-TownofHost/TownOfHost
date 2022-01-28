@@ -90,14 +90,14 @@ namespace TownOfHost
                     opt.KillCooldown = main.BeforeFixCooldown / 12;
                     PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
                 }
-                else if (main.isBountyhunter(__instance) && target != player)
-                {
-                    main.BeforeFixCooldown = opt.KillCooldown * 2;
-                    PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
-                    opt.KillCooldown = main.BeforeFixCooldown / 2;
-                    __instance.RpcMurderPlayer(target);
-                }
-                return false;
+                //else if (main.isBountyhunter(__instance) && target != player)
+                //{
+                    //main.BeforeFixCooldown = opt.KillCooldown * 2;
+                    //PlayerControl.GameOptions.KillCooldown = main.BeforeFixCooldown;
+                    //opt.KillCooldown = main.BeforeFixCooldown;
+                    //__instance.RpcMurderPlayer(target);
+                //}
+                //return false;
             }
 
             
