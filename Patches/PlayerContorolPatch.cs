@@ -42,18 +42,20 @@ namespace TownOfHost
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.Shapeshift))]
     class ShapeshiftPatch
     {
-        public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
+        public static void Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
         {
-            if (main.isCamoflager(__instance))
+            var rand = new System.Random();
+            var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+            if (main.isCamoflager(__instance) && target.CurrentOutfitType != PlayerOutfitType.Shapeshifted)
             {
-                
-                var rand = new System.Random();
-                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-                player.RpcShapeshift(target,true);
-                Logger.SendInGame(player.name + "を強制変身させました");
-                return false;
+                target.RpcShapeshift(player,true);
+                Logger.SendInGame(target.name + "を" + player.name + "に強制変身させました");
             }
-            return false;
+            if (main.isCamoflager(__instance) && target.CurrentOutfitType == PlayerOutfitType.Shapeshifted)
+            {
+                target.RpcShapeshift(player,true);
+                Logger.SendInGame(target.name + "をもとに戻しました");
+            }
         }
     }
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.CheckMurder))]
