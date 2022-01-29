@@ -31,6 +31,7 @@ namespace TownOfHost
                     () => {SetPage(OptionPages.roles);},
                     new List<OptionPages>(){
                         OptionPages.Sidekick,
+                        OptionPages.Camoflager,
                         OptionPages.Vampire,
                         OptionPages.Madmate,
                         OptionPages.MadGuardian,
@@ -62,6 +63,13 @@ namespace TownOfHost
                         () => "<color=#ff0000>" + main.getRoleName(RoleNames.Sidekick) + "</color>: " + main.getOnOff(main.currentShapeshifter == ShapeshifterRoles.Sidekick),
                         true,
                         () => {main.ToggleRole(ShapeshifterRoles.Sidekick);},
+                        new List<OptionPages>(){},
+                        OptionPages.roles
+                    )},
+                    {OptionPages.Camoflager, new PageObject(
+                        () => "<color=#ff0000>" + main.getRoleName(RoleNames.Camoflager) + "</color>:" + main.getOnOff(main.currentShapeshifter == ShapeshifterRoles.Camoflager),
+                        true,
+                        () => {main.ToggleRole(ShapeshifterRoles.Camoflager);},
                         new List<OptionPages>(){},
                         OptionPages.roles
                     )},
@@ -545,6 +553,7 @@ namespace TownOfHost
                 Bait,
                 Terrorist,
                 Sidekick,
+                Camoflager,
                 Vampire,
                 SabotageMaster,
                 Mayor,

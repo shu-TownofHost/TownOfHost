@@ -86,6 +86,12 @@ namespace TownOfHost
                     "<color=#ff0000>" + main.getLang(lang.AfterSidekickInfo) + "</color>\r\n";
                 }
             }
+            //Camoflager
+            if (main.isCamoflager(PlayerControl.LocalPlayer))
+            {
+                TaskTextPrefix = "<color=#ff0000>" + main.getRoleName(RoleNames.Camoflager) + "</color>\r\n" +
+                "<color=#ff0000>" + main.getLang(lang.CamoflagerInfo) + "</color>\r\n";
+            }
             //Vampire
             if (main.isVampire(PlayerControl.LocalPlayer))
             {
