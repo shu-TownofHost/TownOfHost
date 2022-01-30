@@ -36,6 +36,12 @@ namespace TownOfHost
                 }
                 main.SyncCustomSettingsRPC();
                 var opt = PlayerControl.GameOptions;
+                if (main.currentImpostor == ImpostorRoles.Bountyhunter)
+                {
+                    opt.RoleOptions.ProtectionDurationSeconds = 90f;
+                    opt.RoleOptions.ImpostorsCanSeeProtect = true;
+                    opt.RoleOptions.GuardianAngelCooldown = 0.2f;
+                }
                 if (main.currentScientist != ScientistRoles.Default)
                 {//バイタル無効
                     opt.RoleOptions.ScientistBatteryCharge = 0f;

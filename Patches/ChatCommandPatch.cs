@@ -43,6 +43,7 @@ namespace TownOfHost
                     }else{
                         if(main.SyncButtonMode){ main.SendToAll(main.getLang(lang.SyncButtonModeInfo)); }
                         if(main.currentImpostor == ImpostorRoles.Vampire){ main.SendToAll(main.getLang(lang.VampireInfoLong)); }
+                        if(main.currentImpostor == ImpostorRoles.Bountyhunter){ main.SendToAll(main.getLang(lang.BountyhunterInfoLong)); }
                         if(main.currentShapeshifter == ShapeshifterRoles.Sidekick){ main.SendToAll(main.getLang(lang.SidekickInfoLong)); }
                         if(main.currentShapeshifter == ShapeshifterRoles.Camoflager){ main.SendToAll(main.getLang(lang.CamoflagerInfoLong)); }
                         if(main.currentEngineer == EngineerRoles.Madmate){ main.SendToAll(main.getLang(lang.MadmateInfoLong)); }
@@ -59,7 +60,7 @@ namespace TownOfHost
                     canceled = true;
                     if (arg == "")
                     {
-                        __instance.AddChat(PlayerControl.LocalPlayer, "使用可能な引数(略称): jester(je), madmate(ma), bait(ba), terrorist(te), sidekick(si), camoflager(ca) vampire(va), sabotagemaster(sa), mayor(may), opportunist(op), fox(fo), troll(tr)");
+                        __instance.AddChat(PlayerControl.LocalPlayer, "使用可能な引数(略称): jester(je), madmate(ma), bait(ba), terrorist(te), sidekick(si), camoflager(ca) vampire(va), Bountyhunter(bo), sabotagemaster(sa), mayor(may), opportunist(op), fox(fo), troll(tr)");
                     }
                     else if (arg == "jester" || arg == "je")
                     {
@@ -88,6 +89,10 @@ namespace TownOfHost
                     else if (arg == "vampire" || arg == "va")
                     {
                         main.SendToAll(main.getLang(lang.VampireInfoLong));
+                    }
+                    else if (arg == "Bountyhunter" || arg == "bo")
+                    {
+                        main.SendToAll(main.getLang(lang.BountyhunterInfoLong));
                     }
                     else if (arg == "sabotagemaster" || arg == "sa")
                     {

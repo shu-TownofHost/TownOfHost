@@ -98,6 +98,12 @@ namespace TownOfHost
                 TaskTextPrefix = "<color=#a557a5>" + main.getRoleName(RoleNames.Vampire) + "</color>\r\n" +
                 "<color=#a557a5>" + main.getLang(lang.VampireInfo) + "</color>\r\n";
             }
+            //Bountyhunter
+            if (main.isBountyhunter(PlayerControl.LocalPlayer))
+            {
+                TaskTextPrefix = "<color=#ff0000>" + main.getRoleName(RoleNames.Bountyhunter) + "</color>\r\n" +
+                "<color=#ff0000>" + main.getLang(lang.BountyhunterInfo) + "</color>\r\n";
+            }
             //SabotageMaster
             if (main.isSabotageMaster(PlayerControl.LocalPlayer))
             {

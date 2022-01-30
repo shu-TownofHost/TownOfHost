@@ -33,6 +33,7 @@ namespace TownOfHost
                         OptionPages.Sidekick,
                         OptionPages.Camoflager,
                         OptionPages.Vampire,
+                        OptionPages.Bountyhunter,
                         OptionPages.Madmate,
                         OptionPages.MadGuardian,
                         OptionPages.Jester,
@@ -77,6 +78,13 @@ namespace TownOfHost
                         () => "<color=#a757a8>" + main.getRoleName(RoleNames.Vampire) + "</color>: " + main.getOnOff(main.currentImpostor == ImpostorRoles.Vampire),
                         true,
                         () => {main.ToggleRole(ImpostorRoles.Vampire);},
+                        new List<OptionPages>(){},
+                        OptionPages.roles
+                    )},
+                    {OptionPages.Bountyhunter, new PageObject(
+                        () => "<color=#ff0000>" + main.getRoleName(RoleNames.Bountyhunter) + "</color>:" + main.getOnOff(main.currentImpostor == ImpostorRoles.Bountyhunter),
+                        true,
+                        () => {main.ToggleRole(ImpostorRoles.Bountyhunter);},
                         new List<OptionPages>(){},
                         OptionPages.roles
                     )},
@@ -555,6 +563,7 @@ namespace TownOfHost
                 Sidekick,
                 Camoflager,
                 Vampire,
+                Bountyhunter,
                 SabotageMaster,
                 Mayor,
                 Opportunist,

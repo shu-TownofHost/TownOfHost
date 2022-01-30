@@ -46,6 +46,7 @@ namespace TownOfHost
         {
             var rand = new System.Random();
             var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+            //1つ下のif文は他の何かをトリガーにする。
             if (main.isCamoflager(__instance) && main.Shapeshiftedplayers.ContainsKey(shifter.PlayerId))
             {
                 shifter.RpcShapeshift(shifter,true);
@@ -104,6 +105,25 @@ namespace TownOfHost
                     }
                     return false;
                 }
+            }
+            if (main.currentImpostor == ImpostorRoles.Bountyhunter)
+            {
+                //playerの選定とRpcProtectplayerはトリガーを他に作る。
+                var rand = new System.Random();
+                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count -1)];
+                if (main.isBountyhunter(__instance) && target == player)
+                {
+                    Logger.SendInGame("ターゲットをキルしました。");
+                    __instance.RpcMurderPlayer(target);
+                    __instance.RpcProtectPlayer(target,0);
+                    __instance.RpcMurderPlayer(target);
+                }
+                if (main.isBountyhunter(__instance) && target != player)
+                {
+                    Logger.SendInGame("ターゲット以外をキルしました。");
+                    __instance.RpcMurderPlayer(target);
+                }
+                return false;
             }
             if (main.isVampire(__instance) && !main.isBait(target))
             { //キルキャンセル&自爆処理

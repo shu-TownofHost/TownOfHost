@@ -103,6 +103,16 @@ namespace TownOfHost
                 __instance.BackgroundBar.material.color = main.VampireColor;
                 PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Shapeshifter);
             }
+            if (main.isBountyhunter(PlayerControl.LocalPlayer))
+            {
+                __instance.TeamTitle.text = main.getRoleName(RoleNames.Bountyhunter);
+                __instance.TeamTitle.fontSize -= 0.5f;
+                __instance.ImpostorText.gameObject.SetActive(true);
+                __instance.ImpostorText.text = main.getLang(lang.BountyhunterInfo);
+                __instance.TeamTitle.color = Palette.ImpostorRed;
+                __instance.BackgroundBar.material.color = Palette.ImpostorRed;
+                PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Shapeshifter);
+            }
             if (main.isSabotageMaster(PlayerControl.LocalPlayer))
             {
                 __instance.TeamTitle.text = main.getRoleName(RoleNames.SabotageMaster);

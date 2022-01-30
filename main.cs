@@ -133,6 +133,12 @@ namespace TownOfHost
                 return true;
             return false;
         }
+        public static bool isBountyhunter(PlayerControl target)
+        {
+            if (target.Data.Role.Role == RoleTypes.Impostor && currentImpostor == ImpostorRoles.Bountyhunter)
+                return true;
+            return false;
+        }
         public static bool isSabotageMaster(PlayerControl target)
         {
             if (target.Data.Role.Role == RoleTypes.Scientist && currentScientist == ScientistRoles.SabotageMaster)
@@ -253,6 +259,10 @@ namespace TownOfHost
                         case ImpostorRoles.Vampire:
                             RoleText = "Vampire";
                             TextColor = VampireColor;
+                            break;
+                        case ImpostorRoles.Bountyhunter:
+                            RoleText = "Bountyhunter";
+                            TextColor = Palette.ImpostorRed;
                             break;
                         default:
                             RoleText = "Invalid Impostor";
@@ -561,8 +571,9 @@ namespace TownOfHost
                 {lang.SidekickInfo, "インポスターの後継者となれ"},
                 {lang.BeforeSidekickInfo,"今はキルをすることができない"},
                 {lang.AfterSidekickInfo,"クルーメイトに復讐をしろ"},
-                {lang.CamoflagerInfo,"姿を偽り攪乱しろ"},
+                {lang.CamoflagerInfo,"カモフラージュしてクルーを倒せ"},
                 {lang.VampireInfo, "全員を噛んで倒せ"},
+                {lang.BountyhunterInfo, "賞金首を刈れ"},
                 {lang.SabotageMasterInfo, "より早くサボタージュを直せ"},
                 {lang.MayorInfo, "インポスターを追放しろ"},
                 {lang.OpportunistInfo, "とにかく生き残れ"},
@@ -573,8 +584,9 @@ namespace TownOfHost
                 {lang.BaitInfoLong, "ベイト(科学者):キルされたときに、自分をキルした人に強制的に自分の死体を通報させることができる。"},
                 {lang.TerroristInfoLong, "テロリスト(エンジニア):自身のタスクを全て完了させた状態で死亡したときに単独勝利となる第三陣営の役職。死因はキルと追放のどちらでもよい。タスクを完了させずに死亡したり、死亡しないまま試合が終了すると敗北する。"},
                 {lang.SidekickInfoLong, "相棒(シェイプシフター):初期状態でベントやサボタージュ、変身は可能だが、キルはできない。相棒ではないインポスターが全員死亡すると、相棒もキルが可能となる。"},
-                {lang.CamoflagerInfoLong,"カモフラージャー(シェイプシフター):変身をすると、全員が同じ姿に変身する。"},
+                {lang.CamoflagerInfoLong,"カモフラージャー(シェイプシフター):変身させる人を選択すると、その人がランダムに違う人に変身する。自分は変身させた人になることができる。"},
                 {lang.VampireInfoLong, "吸血鬼(インポスター):キルボタンを押してから一定秒数経って実際にキルが発生する役職。キルをしたときのテレポートは発生せず、キルボタンを押してから設定された秒数が経つまでに会議が始まるとその瞬間にキルが発生する。(設定有)"},
+                {lang.BountyhunterInfoLong, "賞金取り(インポスター):守護天使のエフェクトがついているターゲットをキルするとキルクールが半分になる。"},
                 {lang.SabotageMasterInfoLong, "サボタージュマスター(科学者):原子炉メルトダウンや酸素妨害、MIRA HQの通信妨害は片方を修理すれば両方が直る。停電は1箇所のレバーに触れると全て直る。ドアを開けるとその部屋の全てのドアが開く。(設定有)"},
                 {lang.MayorInfoLong, "メイヤー(科学者):票を複数持っており、まとめて一人に入れることができる。(設定有)"},
                 {lang.OpportunistInfoLong, "オポチュニスト(科学者):第三陣営でタスクはなく、ゲーム終了時に生きていれば追加勝利となる。"},
@@ -632,6 +644,7 @@ namespace TownOfHost
                 {lang.AfterSidekickInfo,"Revenge to the Crewmates"},
                 {lang.CamoflagerInfo,"Camoflage and kill the Crewmates"},
                 {lang.VampireInfo, "Kill everyone with your bites"},
+                {lang.BountyhunterInfo,"Hunt your BOunty down"},
                 {lang.SabotageMasterInfo, "Fix sabotages faster"},
                 {lang.MayorInfo, "Ban the Impostors"},
                 {lang.OpportunistInfo, "Do whatever it takes to survive"},
@@ -642,8 +655,9 @@ namespace TownOfHost
                 {lang.BaitInfoLong, "Bait(Scientist):キルされたときに、自分をキルした人に強制的に自分の死体を通報させることができる。"},
                 {lang.TerroristInfoLong, "Terrorist(Engineer):自身のタスクを全て完了させた状態で死亡したときに単独勝利となる第三陣営の役職。死因はキルと追放のどちらでもよい。タスクを完了させずに死亡したり、死亡しないまま試合が終了すると敗北する。"},
                 {lang.SidekickInfoLong, "Sidekick(Shapeshifter):初期状態でベントやサボタージュ、変身は可能だが、キルはできない。Sidekickではないインポスターが全員死亡すると、Sidekickもキルが可能となる。"},
-                {lang.CamoflagerInfoLong,"カモフラージャー(シェイプシフター):変身をすると、全員が同じ姿に変身する。"},
+                {lang.CamoflagerInfoLong,"カモフラージャー(シェイプシフター):変身させる人を選択すると、その人がランダムに違う人に変身する。自分は変身させた人になることができる。"},
                 {lang.VampireInfoLong, "Vampire(Impostor):キルボタンを押してから一定秒数経って実際にキルが発生する役職。キルをしたときのテレポートは発生せず、キルボタンを押してから設定された秒数が経つまでに会議が始まるとその瞬間にキルが発生する。(設定有)"},
+                {lang.BountyhunterInfoLong, "賞金取り(インポスター):守護天使のエフェクトがついているターゲットをキルするとキルクールが半分になる。"},
                 {lang.SabotageMasterInfoLong, "SabotageMaster(Scientist):原子炉メルトダウンや酸素妨害、MIRA HQの通信妨害は片方を修理すれば両方が直る。停電は1箇所のレバーに触れると全て直る。ドアを開けるとその部屋の全てのドアが開く。(設定有)"},
                 {lang.MayorInfoLong, "Mayor(Scientist):票を複数持っており、まとめて一人に入れることができる。(設定有)"},
                 {lang.OpportunistInfoLong, "Opportunist(Scientist):第三陣営でタスクはなく、ゲーム終了時に生きていれば追加勝利となる。"},
@@ -698,6 +712,7 @@ namespace TownOfHost
                 {RoleNames.Sidekick, "Sidekick"},
                 {RoleNames.Camoflager,"Camoflager"},
                 {RoleNames.Vampire, "Vampire"},
+                {RoleNames.Bountyhunter, "Bountyhunter"},
                 {RoleNames.SabotageMaster, "SabotageMaster"},
                 {RoleNames.Mayor, "Mayor"},
                 {RoleNames.Opportunist, "Opportunist"},
@@ -713,6 +728,7 @@ namespace TownOfHost
                 {RoleNames.Sidekick, "相棒"},
                 {RoleNames.Camoflager,"カモフラージャー"},
                 {RoleNames.Vampire, "吸血鬼"},
+                {RoleNames.Bountyhunter, "賞金取り"},
                 {RoleNames.SabotageMaster, "サボタージュマスター"},
                 {RoleNames.Mayor, "メイヤー"},
                 {RoleNames.Opportunist, "オポチュニスト"},
@@ -736,6 +752,7 @@ namespace TownOfHost
         AfterSidekickInfo,
         CamoflagerInfo,
         VampireInfo,
+        BountyhunterInfo,
         SabotageMasterInfo,
         MadGuardianInfo,
         MayorInfo,
@@ -750,6 +767,7 @@ namespace TownOfHost
         SidekickInfoLong,
         CamoflagerInfoLong,
         VampireInfoLong,
+        BountyhunterInfoLong,
         SabotageMasterInfoLong,
         MadGuardianInfoLong,
         MayorInfoLong,
@@ -804,6 +822,7 @@ namespace TownOfHost
         Sidekick,
         Camoflager,
         Vampire,
+        Bountyhunter,
         SabotageMaster,
         MadGuardian,
         Mayor,
@@ -838,7 +857,8 @@ namespace TownOfHost
     public enum ImpostorRoles
     {
         Default = 0,
-        Vampire
+        Vampire,
+        Bountyhunter
     }
     public enum ShapeshifterRoles
     {
