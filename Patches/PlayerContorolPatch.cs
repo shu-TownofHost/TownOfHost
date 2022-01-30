@@ -26,7 +26,7 @@ namespace TownOfHost
             //When Bait is killed
             if (target.Data.Role.Role == RoleTypes.Scientist && main.currentScientist == ScientistRoles.Bait && AmongUsClient.Instance.AmHost
             && __instance.PlayerId != target.PlayerId)
-            {
+            { 
                 Logger.SendToFile(target.name + "はBaitだった");
                 new LateTask(() => __instance.CmdReportDeadBody(target.Data), 0.15f, "Bait Self Report");
             }
@@ -39,22 +39,24 @@ namespace TownOfHost
             }
         }
     }
-    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.Shapeshift))]
+    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.Shapeshift))] 
     class ShapeshiftPatch
     {
-        public static void Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
+        public static void Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl shifter)
         {
             var rand = new System.Random();
             var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-            if (main.isCamoflager(__instance) && target.CurrentOutfitType != PlayerOutfitType.Shapeshifted)
+            if (main.isCamoflager(__instance) && main.Shapeshiftedplayers.ContainsKey(shifter.PlayerId))
             {
-                target.RpcShapeshift(player,true);
-                Logger.SendInGame(target.name + "を" + player.name + "に強制変身させました");
+                shifter.RpcShapeshift(shifter,true);
+                Logger.SendInGame(shifter.name + "を戻しました");
+                main.Shapeshiftedplayers.Clear();
             }
-            if (main.isCamoflager(__instance) && target.CurrentOutfitType == PlayerOutfitType.Shapeshifted)
+            if (main.isCamoflager(__instance) && shifter.CurrentOutfitType != PlayerOutfitType.Shapeshifted)
             {
-                target.RpcShapeshift(player,true);
-                Logger.SendInGame(target.name + "をもとに戻しました");
+                shifter.RpcShapeshift(player,true);
+                Logger.SendInGame(shifter.name + "を" + player.name + "に強制変身させました");
+                main.Shapeshiftedplayers.Add(shifter.PlayerId,(player.PlayerId, 0f));
             }
         }
     }
