@@ -42,22 +42,25 @@ namespace TownOfHost
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.Shapeshift))] 
     class ShapeshiftPatch
     {
-        public static void Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl shifter)
+        public static void Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
         {
-            var rand = new System.Random();
-            var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-            //1つ下のif文は他の何かをトリガーにする。
-            if (main.isCamoflager(__instance) && main.Shapeshiftedplayers.ContainsKey(shifter.PlayerId))
+            if (main.isCamoflager(__instance)  && target.CurrentOutfitType != PlayerOutfitType.Shapeshifted)
             {
-                shifter.RpcShapeshift(shifter,true);
-                Logger.SendInGame(shifter.name + "を戻しました");
-                main.Shapeshiftedplayers.Clear();
+                foreach (var player in PlayerControl.AllPlayerControls)
+                {
+                    PlayerControl.AllPlayerControls.Remove(__instance);
+                    player.RpcShapeshift(target,true);
+                    Logger.SendInGame(player.name + "を" + target.name + "に強制変身させました。");
+                }
             }
-            if (main.isCamoflager(__instance) && shifter.CurrentOutfitType != PlayerOutfitType.Shapeshifted)
+            if (main.isCamoflager(__instance)  && target.CurrentOutfitType == PlayerOutfitType.Shapeshifted)
             {
-                shifter.RpcShapeshift(player,true);
-                Logger.SendInGame(shifter.name + "を" + player.name + "に強制変身させました");
-                main.Shapeshiftedplayers.Add(shifter.PlayerId,(player.PlayerId, 0f));
+                foreach (var player in PlayerControl.AllPlayerControls)
+                {
+                    PlayerControl.AllPlayerControls.Remove(__instance);
+                    player.RpcShapeshift(player,true);
+                    Logger.SendInGame(player.name + "を" + player.name + "に強制変身させました。");
+                }
             }
         }
     }
