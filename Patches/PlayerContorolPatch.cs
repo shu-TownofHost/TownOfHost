@@ -109,23 +109,31 @@ namespace TownOfHost
                     return false;
                 }
             }
-            if (main.currentImpostor == ImpostorRoles.Bountyhunter)
+            if (main.isBountyhunter(__instance))
             {
-                //playerの選定とRpcProtectplayerはトリガーを他に作る。
+                if (main.Bountytargetplayer.ContainsKey(target.PlayerId))
+                {
+                    byte targetID = main.Bountytargetplayer[target.PlayerId].Item1;
+                    var target1 = PlayerControl.LocalPlayer;
+                    if (main.isBountyhunter(__instance) && target == target1)
+                    {
+                        __instance.RpcMurderPlayer(target1);
+                        __instance.RpcProtectPlayer(target1,0);
+                        __instance.RpcMurderPlayer(target1);
+                        Logger.SendInGame("ターゲットをキルしました。");
+                    }
+                    if (main.isBountyhunter(__instance) && target != target1)
+                    {
+                        __instance.RpcMurderPlayer(target1);
+                        Logger.SendInGame("ターゲット以外をキルしました。");
+                    }
+                }
                 var rand = new System.Random();
-                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count -1)];
-                if (main.isBountyhunter(__instance) && target == player)
-                {
-                    Logger.SendInGame("ターゲットをキルしました。");
-                    __instance.RpcMurderPlayer(target);
-                    __instance.RpcProtectPlayer(target,0);
-                    __instance.RpcMurderPlayer(target);
-                }
-                if (main.isBountyhunter(__instance) && target != player)
-                {
-                    Logger.SendInGame("ターゲット以外をキルしました。");
-                    __instance.RpcMurderPlayer(target);
-                }
+                PlayerControl.AllPlayerControls.Remove(__instance);
+               
+                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                Logger.SendInGame(player.name + "がターゲットです");
+                main.Bountytargetplayer.Add(player.PlayerId, (target.PlayerId,0f));
                 return false;
             }
             if (main.isVampire(__instance) && !main.isBait(target))
@@ -138,7 +146,7 @@ namespace TownOfHost
             __instance.RpcMurderPlayer(target);
             if (main.isFixedCooldown)
             {
-                __instance.RpcGuardAndKill(target);
+                __instance.RpcMurderPlayer(target);
             }
             return false;
         }

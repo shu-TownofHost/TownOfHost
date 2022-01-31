@@ -158,6 +158,7 @@ namespace TownOfHost
             }
             main.BitPlayers = new Dictionary<byte, (byte, float)>();
             main.Shapeshiftedplayers = new Dictionary<byte, (byte, float)>();
+            main.Bountytargetplayer = new Dictionary<byte, (byte, float)>();
             main.VisibleTasksCount = false;
             if(AmongUsClient.Instance.AmHost) {
                 if(main.IsHideAndSeek) {
