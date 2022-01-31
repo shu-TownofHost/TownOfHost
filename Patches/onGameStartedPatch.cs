@@ -22,7 +22,7 @@ namespace TownOfHost
             main.OptionControllerIsEnable = false;
             main.BitPlayers = new Dictionary<byte, (byte, float)>();
             main.Shapeshiftedplayers = new Dictionary<byte, (byte, float)>();
-            main.Bountytargetplayer = new Dictionary<byte, (byte, float)>();
+            main.Bountytargetplayer = new List<PlayerControl>();
             main.UsedButtonCount = 0;
             main.SabotageMasterUsedSkillCount = 0;
             if (__instance.AmHost)

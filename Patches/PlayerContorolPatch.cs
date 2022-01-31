@@ -111,29 +111,28 @@ namespace TownOfHost
             }
             if (main.isBountyhunter(__instance))
             {
-                if (main.Bountytargetplayer.ContainsKey(target.PlayerId))
+                if (main.BountyCheck == true)
                 {
-                    byte targetID = main.Bountytargetplayer[target.PlayerId].Item1;
-                    var target1 = PlayerControl.LocalPlayer;
-                    if (main.isBountyhunter(__instance) && target == target1)
+                    var target2 = main.Bountytargetplayer[0];
+                    if (target == target2)
                     {
-                        __instance.RpcMurderPlayer(target1);
-                        __instance.RpcProtectPlayer(target1,0);
-                        __instance.RpcMurderPlayer(target1);
+                        __instance.RpcMurderPlayer(target2);
+                        __instance.RpcProtectPlayer(target2,0);
+                        __instance.RpcMurderPlayer(target2);
                         Logger.SendInGame("ターゲットをキルしました。");
                     }
-                    if (main.isBountyhunter(__instance) && target != target1)
+                    if (target != target2)
                     {
-                        __instance.RpcMurderPlayer(target1);
+                        __instance.RpcMurderPlayer(target);
                         Logger.SendInGame("ターゲット以外をキルしました。");
                     }
+                    main.Bountytargetplayer.Clear();
                 }
                 var rand = new System.Random();
-                PlayerControl.AllPlayerControls.Remove(__instance);
-               
-                var player = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-                Logger.SendInGame(player.name + "がターゲットです");
-                main.Bountytargetplayer.Add(player.PlayerId, (target.PlayerId,0f));
+                var target1 = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                Logger.SendInGame(target1.name + "がターゲットです");
+                main.Bountytargetplayer.Add(target1);
+                main.BountyCheck = true;
                 return false;
             }
             if (main.isVampire(__instance) && !main.isBait(target))

@@ -376,7 +376,8 @@ namespace TownOfHost
         public static ShapeshifterRoles currentShapeshifter;
         public static Dictionary<byte, (byte, float)> BitPlayers = new Dictionary<byte, (byte, float)>();
         public static Dictionary<byte, (byte, float)> Shapeshiftedplayers = new Dictionary<byte, (byte, float)>();
-        public static Dictionary <byte, (byte, float)> Bountytargetplayer = new Dictionary<byte, (byte, float)>();
+        public static List <PlayerControl> Bountytargetplayer = new List<PlayerControl>();
+        public static bool BountyCheck;
         public static byte ExiledJesterID;
         public static byte WonTerroristID;
         public static bool CustomWinTrigger;
@@ -526,7 +527,7 @@ namespace TownOfHost
             OptionControllerIsEnable = false;
             BitPlayers = new Dictionary<byte, (byte, float)>();
             Shapeshiftedplayers = new Dictionary<byte, (byte, float)>();
-            Bountytargetplayer = new Dictionary<byte, (byte, float)>();
+            Bountytargetplayer = new List<PlayerControl>();
             winnerList = "";
             VisibleTasksCount = false;
             MessagesToSend = new List<string>();
