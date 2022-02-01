@@ -715,7 +715,7 @@ namespace TownOfHost
                 {RoleNames.Sidekick, "Sidekick"},
                 {RoleNames.Camoflager,"Camoflager"},
                 {RoleNames.Vampire, "Vampire"},
-                {RoleNames.Bountyhunter, "Bountyhunter"},
+                {RoleNames.Bountyhunter, "bountyhunter"},
                 {RoleNames.SabotageMaster, "SabotageMaster"},
                 {RoleNames.Mayor, "Mayor"},
                 {RoleNames.Opportunist, "Opportunist"},

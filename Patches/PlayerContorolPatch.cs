@@ -120,19 +120,32 @@ namespace TownOfHost
                         __instance.RpcProtectPlayer(target2,0);
                         __instance.RpcMurderPlayer(target2);
                         Logger.SendInGame("ターゲットをキルしました。");
+                        main.Bountytargetplayer.Clear();
+                        main.BountyCheck = false;
                     }
                     if (target != target2)
                     {
                         __instance.RpcMurderPlayer(target);
                         Logger.SendInGame("ターゲット以外をキルしました。");
                     }
-                    main.Bountytargetplayer.Clear();
                 }
-                var rand = new System.Random();
-                var target1 = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-                Logger.SendInGame(target1.name + "がターゲットです");
-                main.Bountytargetplayer.Add(target1);
-                main.BountyCheck = true;
+                while (main.BountyCheck == false)
+                {
+                    var rand = new System.Random();
+                    var target1 = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                    if (target1.Data.IsDead || target1.Data.Role.Role == RoleTypes.Impostor)
+                    {
+                        main.BountyCheck = false;
+                        Logger.SendInGame(target1.name + "がターゲットでしたが、キャンセルされました。");
+                    }
+                    else
+                    {
+                        main.Bountytargetplayer.Add(target1);
+                        main.BountyCheck = true;
+                        Logger.SendInGame(target1.name + "がターゲットです");
+                        break;
+                    }
+                }
                 return false;
             }
             if (main.isVampire(__instance) && !main.isBait(target))
