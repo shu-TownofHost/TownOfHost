@@ -54,7 +54,11 @@ namespace TownOfHost {
             if(cRoleFound) return cRole;
             else return CustomRoles.Default;
         }
-
+        public static CustomSubRoles getCustomSubRole(this PlayerControl player) {
+            var cRoleFound = main.AllPlayerCustomSubRoles.TryGetValue(player.PlayerId, out var cRole);
+            if(cRoleFound) return cRole;
+            else return CustomSubRoles.Default;
+        }
         public static void RpcSetNamePrivate(this PlayerControl player, string name, bool DontShowOnModdedClient = false, PlayerControl seer = null) {
             //player: 名前の変更対象
             //seer: 上の変更を確認することができるプレイヤー
@@ -93,5 +97,6 @@ namespace TownOfHost {
         public static bool isMayor(this PlayerControl target){return target.getCustomRole() == CustomRoles.Mayor;}
         public static bool isOpportunist(this PlayerControl target){return target.getCustomRole() == CustomRoles.Opportunist;}
         public static bool isSnitch(this PlayerControl target){return target.getCustomRole() == CustomRoles.Snitch;}
+        public static bool isLovers(this PlayerControl target){return target.getCustomSubRole() == CustomSubRoles.Lovers;}
     }
 }

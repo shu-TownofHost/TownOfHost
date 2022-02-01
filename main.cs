@@ -50,6 +50,7 @@ namespace TownOfHost
         public static float HideAndSeekImpVisionMin;
 
         public static Dictionary<byte, CustomRoles> AllPlayerCustomRoles;
+        public static Dictionary<byte, CustomSubRoles> AllPlayerCustomSubRoles;
         public static bool SyncButtonMode;
         public static int SyncedButtonCount;
         public static int UsedButtonCount;
@@ -938,6 +939,10 @@ namespace TownOfHost
         Snitch,
         Fox,
         Troll
+    }
+    public enum CustomSubRoles {
+        Default = 0,
+        Lovers
     }
     //WinData
     public enum CustomWinner
