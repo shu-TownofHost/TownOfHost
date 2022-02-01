@@ -157,7 +157,7 @@ namespace TownOfHost
                 PlayerControl.GameOptions.EmergencyCooldown = main.BeforeFixMeetingCooldown;
             }
             main.BitPlayers = new Dictionary<byte, (byte, float)>();
-            main.Shapeshiftedplayers = new Dictionary<byte, (byte, float)>();
+            main.Warlocktarget = new List<PlayerControl>();
             main.Bountytargetplayer = new List<PlayerControl>();
             main.VisibleTasksCount = false;
             if(AmongUsClient.Instance.AmHost) {

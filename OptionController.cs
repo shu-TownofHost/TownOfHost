@@ -31,7 +31,7 @@ namespace TownOfHost
                     () => {SetPage(OptionPages.roles);},
                     new List<OptionPages>(){
                         OptionPages.Sidekick,
-                        OptionPages.Camoflager,
+                        OptionPages.Warlock,
                         OptionPages.Vampire,
                         OptionPages.Bountyhunter,
                         OptionPages.Madmate,
@@ -67,10 +67,10 @@ namespace TownOfHost
                         new List<OptionPages>(){},
                         OptionPages.roles
                     )},
-                    {OptionPages.Camoflager, new PageObject(
-                        () => "<color=#ff0000>" + main.getRoleName(RoleNames.Camoflager) + "</color>:" + main.getOnOff(main.currentShapeshifter == ShapeshifterRoles.Camoflager),
+                    {OptionPages.Warlock, new PageObject(
+                        () => "<color=#ff0000>" + main.getRoleName(RoleNames.Warlock) + "</color>:" + main.getOnOff(main.currentShapeshifter == ShapeshifterRoles.Warlock),
                         true,
-                        () => {main.ToggleRole(ShapeshifterRoles.Camoflager);},
+                        () => {main.ToggleRole(ShapeshifterRoles.Warlock);},
                         new List<OptionPages>(){},
                         OptionPages.roles
                     )},
@@ -561,7 +561,7 @@ namespace TownOfHost
                 Bait,
                 Terrorist,
                 Sidekick,
-                Camoflager,
+                Warlock,
                 Vampire,
                 Bountyhunter,
                 SabotageMaster,

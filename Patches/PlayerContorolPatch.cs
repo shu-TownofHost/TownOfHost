@@ -39,31 +39,15 @@ namespace TownOfHost
             }
         }
     }
-    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.Shapeshift))] 
-    class ShapeshiftPatch
-    {
-        public static void Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
-        {
-            if (main.isCamoflager(__instance)  && target.CurrentOutfitType != PlayerOutfitType.Shapeshifted)
-            {
-                foreach (var player in PlayerControl.AllPlayerControls)
-                {
-                    PlayerControl.AllPlayerControls.Remove(__instance);
-                    player.RpcShapeshift(target,true);
-                    Logger.SendInGame(player.name + "を" + target.name + "に強制変身させました。");
-                }
-            }
-            if (main.isCamoflager(__instance)  && target.CurrentOutfitType == PlayerOutfitType.Shapeshifted)
-            {
-                foreach (var player in PlayerControl.AllPlayerControls)
-                {
-                    PlayerControl.AllPlayerControls.Remove(__instance);
-                    player.RpcShapeshift(player,true);
-                    Logger.SendInGame(player.name + "を" + player.name + "に強制変身させました。");
-                }
-            }
-        }
-    }
+    [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.Shapeshift))]
+    //class ShapeshiftPatch
+    //{
+        //public static bool Prefix(PlayerControl __instance, [HarmonyArgument(0)] PlayerControl target)
+        //{
+            
+        //}
+    //}
+
     [HarmonyPatch(typeof(PlayerControl), nameof(PlayerControl.CheckMurder))]
     class CheckMurderPatch
     {
@@ -106,6 +90,48 @@ namespace TownOfHost
                         //MadGuardian視点用
                         target.RpcGuardAndKill(target);
                     }
+                    return false;
+                }
+            }
+            if (main.isWarlock(__instance))
+            {
+                if (__instance.CurrentOutfitType == PlayerOutfitType.Shapeshifted)
+                {
+                    __instance.RpcProtectPlayer(target,0);
+                    __instance.RpcMurderPlayer(target);
+                    main.Warlocktarget.Add(target);
+                    Logger.SendInGame(target.name + "に呪いをかけました。");
+                    main.WarlockCheck = true;
+                    return false;
+                }
+                if (main.WarlockCheck == true)
+                {
+                    var target1 = main.Warlocktarget[0];
+                    //var rand = new System.Random();
+                    //var target2 = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                    Vector2 target1pos = target1.transform.position;
+                    Dictionary<PlayerControl, float> playerDistance = new Dictionary<PlayerControl, float>();
+                    float dis;
+                    foreach(PlayerControl p in PlayerControl.AllPlayerControls)
+                    {
+                        if(p != target1 && !p.Data.IsDead)
+                        {
+                            dis = Vector2.Distance(target1pos,p.transform.position);
+                            playerDistance.Add(p,dis);
+                        }
+                    }
+                    var min = playerDistance.OrderBy(c => c.Value).FirstOrDefault();
+                    PlayerControl target2 = min.Key;
+                    Logger.info($"{target2.name}");
+                    target1.RpcMurderPlayer(target2);
+                    Logger.SendInGame(target1.name + "が" + target2.name + "をキルしました");
+                    main.Warlocktarget.Clear();
+                    main.WarlockCheck = false;
+                    return false;
+                }
+                else
+                {
+                    __instance.RpcMurderPlayer(target);
                     return false;
                 }
             }

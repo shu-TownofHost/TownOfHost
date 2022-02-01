@@ -21,7 +21,7 @@ namespace TownOfHost
             main.CustomWinTrigger = false;
             main.OptionControllerIsEnable = false;
             main.BitPlayers = new Dictionary<byte, (byte, float)>();
-            main.Shapeshiftedplayers = new Dictionary<byte, (byte, float)>();
+            main.Warlocktarget = new List<PlayerControl>();
             main.Bountytargetplayer = new List<PlayerControl>();
             main.UsedButtonCount = 0;
             main.SabotageMasterUsedSkillCount = 0;

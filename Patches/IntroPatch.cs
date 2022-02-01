@@ -84,12 +84,12 @@ namespace TownOfHost
                 __instance.TeamTitle.color = Palette.ImpostorRed;
                 __instance.BackgroundBar.material.color = Color.red;
             }
-            if (main.isCamoflager(PlayerControl.LocalPlayer))
+            if (main.isWarlock(PlayerControl.LocalPlayer))
             {
-                __instance.TeamTitle.text = main.getRoleName(RoleNames.Camoflager);
+                __instance.TeamTitle.text = main.getRoleName(RoleNames.Warlock);
                 __instance.TeamTitle.fontSize -= 0.5f;
                 __instance.ImpostorText.gameObject.SetActive(true);
-                __instance.ImpostorText.text = main.getLang(lang.CamoflagerInfo);
+                __instance.ImpostorText.text = main.getLang(lang.WarlockInfo);
                 __instance.TeamTitle.color = Palette.ImpostorRed;
                 __instance.BackgroundBar.material.color = Color.red;
             }
