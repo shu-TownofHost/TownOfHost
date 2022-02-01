@@ -161,6 +161,17 @@ namespace TownOfHost
             }
             return count;
         }
+        public static int GetCountFromSubRole(CustomSubRoles role) {
+            int count;
+            switch(role) {
+                case CustomSubRoles.Lovers:
+                    count = LoversCount;
+                    break;
+                default:
+                    return -1;
+            }
+            return count;
+        }
         public static void SetCountFromRole(CustomRoles role, int count) {
             switch(role) {
                 case CustomRoles.Jester:
@@ -438,6 +449,9 @@ namespace TownOfHost
         public static int SnitchCount;
         public static int FoxCount;
         public static int TrollCount;
+
+        //Enabled SubRole
+        public static int LoversCount;
 
         public static Dictionary<byte, (byte, float)> BitPlayers = new Dictionary<byte, (byte, float)>();
         public static byte ExiledJesterID;
