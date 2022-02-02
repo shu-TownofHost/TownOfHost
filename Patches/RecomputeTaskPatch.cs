@@ -56,6 +56,13 @@ namespace TownOfHost
                         }
                     }
                 }
+                // Lovers 互いに♥が付くように
+                if(p.isLovers()){
+                    foreach(PlayerControl t in PlayerControl.AllPlayerControls)
+                    {
+                        if (t.isLovers()) {p.RpcSetNamePrivate(p.name +  "<color=#90ee90>♥</color>" , false, t);}
+                    }
+                }
             }
             return false;
         }
