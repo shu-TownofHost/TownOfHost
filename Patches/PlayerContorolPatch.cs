@@ -97,8 +97,7 @@ namespace TownOfHost
             {
                 if (__instance.CurrentOutfitType == PlayerOutfitType.Shapeshifted)
                 {
-                    __instance.RpcProtectPlayer(target,0);
-                    __instance.RpcMurderPlayer(target);
+                    __instance.RpcGuardAndKill(target);
                     main.Warlocktarget.Add(target);
                     Logger.SendInGame(target.name + "に呪いをかけました。");
                     main.WarlockCheck = true;
@@ -107,8 +106,6 @@ namespace TownOfHost
                 if (main.WarlockCheck == true)
                 {
                     var target1 = main.Warlocktarget[0];
-                    //var rand = new System.Random();
-                    //var target2 = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
                     Vector2 target1pos = target1.transform.position;
                     Dictionary<PlayerControl, float> playerDistance = new Dictionary<PlayerControl, float>();
                     float dis;
@@ -124,6 +121,7 @@ namespace TownOfHost
                     PlayerControl target2 = min.Key;
                     Logger.info($"{target2.name}");
                     target1.RpcMurderPlayer(target2);
+                    __instance.RpcGuardAndKill(__instance);
                     Logger.SendInGame(target1.name + "が" + target2.name + "をキルしました");
                     main.Warlocktarget.Clear();
                     main.WarlockCheck = false;
@@ -137,40 +135,31 @@ namespace TownOfHost
             }
             if (main.isBountyhunter(__instance))
             {
-                if (main.BountyCheck == true)
+                if (main.BountyCheck)
                 {
-                    var target2 = main.Bountytargetplayer[0];
-                    if (target == target2)
-                    {
-                        __instance.RpcMurderPlayer(target2);
-                        __instance.RpcProtectPlayer(target2,0);
-                        __instance.RpcMurderPlayer(target2);
-                        Logger.SendInGame("ターゲットをキルしました。");
-                        main.Bountytargetplayer.Clear();
-                        main.BountyCheck = false;
-                    }
-                    if (target != target2)
+                    // キルしたのがターゲットではない場合
+                    if (target != main.b_target)
                     {
                         __instance.RpcMurderPlayer(target);
                         Logger.SendInGame("ターゲット以外をキルしました。");
                     }
-                }
-                while (main.BountyCheck == false)
-                {
-                    var rand = new System.Random();
-                    var target1 = PlayerControl.AllPlayerControls[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
-                    if (target1.Data.IsDead || target1.Data.Role.Role == RoleTypes.Impostor)
-                    {
-                        main.BountyCheck = false;
-                        Logger.SendInGame(target1.name + "がターゲットでしたが、キャンセルされました。");
-                    }
+                    // キルしたのがターゲットの場合
                     else
                     {
-                        main.Bountytargetplayer.Add(target1);
-                        main.BountyCheck = true;
-                        Logger.SendInGame(target1.name + "がターゲットです");
-                        break;
+                        __instance.RpcMurderPlayer(main.b_target);
+                        __instance.RpcGuardAndKill(main.b_target);
+                        Logger.SendInGame("ターゲットをキルしました。");
+                        main.BountyCheck = false;
                     }
+                }else{
+                    // ターゲットがいない場合
+                    var rand = new System.Random();
+                    main.BountyTargetPlayer = new List<PlayerControl>();
+                    foreach(var p in PlayerControl.AllPlayerControls)if(!p.Data.IsDead || p.Data.Role.Role != RoleTypes.Impostor)main.BountyTargetPlayer.Add(p);
+                    main.b_target = main.BountyTargetPlayer[rand.Next(0,PlayerControl.AllPlayerControls.Count - 1)];
+                    main.BountyTargetPlayer.Add(main.b_target);
+                    main.BountyCheck = true;
+                    Logger.SendInGame(main.b_target.name + "がターゲットです");
                 }
                 return false;
             }

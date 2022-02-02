@@ -158,7 +158,6 @@ namespace TownOfHost
             }
             main.BitPlayers = new Dictionary<byte, (byte, float)>();
             main.Warlocktarget = new List<PlayerControl>();
-            main.Bountytargetplayer = new List<PlayerControl>();
             main.VisibleTasksCount = false;
             if(AmongUsClient.Instance.AmHost) {
                 if(main.IsHideAndSeek) {

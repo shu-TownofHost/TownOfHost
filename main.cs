@@ -376,7 +376,7 @@ namespace TownOfHost
         public static ShapeshifterRoles currentShapeshifter;
         public static Dictionary<byte, (byte, float)> BitPlayers = new Dictionary<byte, (byte, float)>();
         public static List <PlayerControl> Warlocktarget = new List<PlayerControl>();
-        public static List <PlayerControl> Bountytargetplayer = new List<PlayerControl>();
+        public static List <PlayerControl> BountyTargetPlayer = new List<PlayerControl>();
         public static bool WarlockCheck;
         public static bool BountyCheck;
         public static byte ExiledJesterID;
@@ -396,6 +396,7 @@ namespace TownOfHost
         public static bool MadmateCanFixLightsOut;
         public static bool MadGuardianCanSeeBarrier;
         public static SuffixModes currentSuffix;
+        public static PlayerControl b_target;
         //SyncCustomSettingsRPC Sender
         public static void SyncCustomSettingsRPC()
         {
@@ -528,7 +529,8 @@ namespace TownOfHost
             OptionControllerIsEnable = false;
             BitPlayers = new Dictionary<byte, (byte, float)>();
             Warlocktarget = new List<PlayerControl>();
-            Bountytargetplayer = new List<PlayerControl>();
+            BountyTargetPlayer = new List<PlayerControl>();
+
             winnerList = "";
             VisibleTasksCount = false;
             MessagesToSend = new List<string>();
