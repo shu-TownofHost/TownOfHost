@@ -412,7 +412,7 @@ namespace TownOfHost
                 if(main.MadGuardianCount > 0) main.SendToAll(main.getLang(lang.MadGuardianInfoLong));
                 if(main.OpportunistCount > 0) main.SendToAll(main.getLang(lang.OpportunistInfoLong));
                 if(main.SnitchCount > 0) main.SendToAll(main.getLang(lang.SnitchInfoLong));
-                if(main.LoversCount == 0) main.SendToAll(main.getLang(lang.LoversInfoLong));
+                if(main.LoversCount > 0) main.SendToAll(main.getLang(lang.LoversInfoLong));
             }
             if(main.NoGameEnd){ main.SendToAll(main.getLang(lang.NoGameEndInfo)); }
         }
