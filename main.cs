@@ -82,7 +82,19 @@ namespace TownOfHost
             if(currentCount > 0) return 0;
             else return 1;
         }
+        public static int SetSubRoleCountToggle(int currentCount)
+        {
+            if(currentCount > 0) return 0;
+            else return 1;
+        }
         public static int SetRoleCount(int currentCount, int addCount)
+        {
+            var fixedCount = currentCount * 10;
+            fixedCount += addCount;
+            fixedCount = Math.Clamp(fixedCount, 0, 99);
+            return fixedCount;
+        }
+        public static int SetSubRoleCount(int currentCount, int addCount)
         {
             var fixedCount = currentCount * 10;
             fixedCount += addCount;
@@ -95,12 +107,25 @@ namespace TownOfHost
             count = SetRoleCountToggle(count);
             SetCountFromRole(role, count);
         }
+        public static void SetSubRoleCountToggle(CustomSubRoles role)
+        {
+            int count = GetCountFromSubRole(role);
+            count = SetSubRoleCountToggle(count);
+            SetCountFromSubRole(role, count);
+        }
         public static void SetRoleCount(CustomRoles role, int addCount)
         {
             int count = GetCountFromRole(role);
             count = SetRoleCount(count, addCount);
             SetCountFromRole(role, count);
         }
+        public static void SetSubRoleCount(CustomSubRoles role, int addCount)
+        {
+            int count = GetCountFromSubRole(role);
+            count = SetRoleCount(count, addCount);
+            SetCountFromSubRole(role, count);
+        }
+        
         //Lang-Get
         //langのenumに対応した値をリストから持ってくる
         public static string getLang(lang lang)
@@ -123,10 +148,12 @@ namespace TownOfHost
             return text;
         }
         public static string getRoleName(CustomSubRoles role) {
+            // TryGetValue が正常に動作しないため暫定処理
+            if(role == CustomSubRoles.Lovers) {return "Lovers";}
+            
             var dic = TranslationController.Instance.CurrentLanguage.languageID == SupportedLangs.Japanese &&
             JapaneseRoleName.Value == true ? JapaneseSubRoleNames : EnglishSubRoleNames;
             var isSuccess = dic.TryGetValue(role, out var text);
-            //TODO:TryGetValue が正常に動作するか未確認
             return isSuccess ? text : "<Not Found:" + role.ToString() + ">";
         }
 
@@ -989,7 +1016,8 @@ namespace TownOfHost
         Draw = 0,
         Default,
         Jester,
-        Terrorist
+        Terrorist,
+        Lovers,
     }
     /*public enum CustomRoles : byte
     {
