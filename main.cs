@@ -497,6 +497,7 @@ namespace TownOfHost
 
         //Enabled SubRole
         public static int LoversCount;
+        public static bool isLovers = false;
 
         public static Dictionary<byte, (byte, float)> BitPlayers = new Dictionary<byte, (byte, float)>();
         public static byte ExiledJesterID;
