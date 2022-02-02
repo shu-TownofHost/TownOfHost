@@ -34,8 +34,10 @@ namespace TownOfHost
         //Lang-arrangement
         private static Dictionary<lang, string> JapaneseTexts = new Dictionary<lang, string>();
         private static Dictionary<CustomRoles, string> JapaneseRoleNames = new Dictionary<CustomRoles, string>();
+        private static Dictionary<CustomSubRoles, string> JapaneseSubRoleNames = new Dictionary<CustomSubRoles, string>();
         private static Dictionary<lang, string> EnglishTexts = new Dictionary<lang, string>();
         private static Dictionary<CustomRoles, string> EnglishRoleNames = new Dictionary<CustomRoles, string>();
+        private static Dictionary<CustomSubRoles, string> EnglishSubRoleNames = new Dictionary<CustomSubRoles, string>();
         //Other Configs
         public static ConfigEntry<bool> TeruteruColor { get; private set; }
         public static ConfigEntry<bool> IgnoreWinnerCommand { get; private set; }
@@ -120,6 +122,14 @@ namespace TownOfHost
             string text = currentLanguage.GetString(RoleTypeHelpers.RoleToName[role], "Invalid Role", new Il2CppSystem.Object[0]{});
             return text;
         }
+        public static string getRoleName(CustomSubRoles role) {
+            var dic = TranslationController.Instance.CurrentLanguage.languageID == SupportedLangs.Japanese &&
+            JapaneseRoleName.Value == true ? JapaneseSubRoleNames : EnglishSubRoleNames;
+            var isSuccess = dic.TryGetValue(role, out var text);
+            //TODO:TryGetValue が正常に動作するか未確認
+            return isSuccess ? text : "<Not Found:" + role.ToString() + ">";
+        }
+
         public static int GetCountFromRole(CustomRoles role) {
             int count;
             switch(role) {
@@ -209,7 +219,13 @@ namespace TownOfHost
                     break;
             }
         }
-
+        public static void SetCountFromSubRole(CustomSubRoles role, int count) {
+            switch(role) {
+                case CustomSubRoles.Lovers:
+                    LoversCount = count;
+                    break;
+            }
+        }
         public static (string, Color) GetRoleText(PlayerControl player)
         {
             string RoleText = "Invalid Role";
@@ -369,6 +385,7 @@ namespace TownOfHost
                 if(main.MadGuardianCount > 0) main.SendToAll(main.getLang(lang.MadGuardianInfoLong));
                 if(main.OpportunistCount > 0) main.SendToAll(main.getLang(lang.OpportunistInfoLong));
                 if(main.SnitchCount > 0) main.SendToAll(main.getLang(lang.SnitchInfoLong));
+                if(main.LoversCount == 0) main.SendToAll(main.getLang(lang.LoversInfoLong));
             }
             if(main.NoGameEnd){ main.SendToAll(main.getLang(lang.NoGameEndInfo)); }
         }
@@ -395,6 +412,7 @@ namespace TownOfHost
                 if(main.MadGuardianCount > 0)text += String.Format("\n{0,-14}:{1}",main.getRoleName(CustomRoles.MadGuardian),main.MadGuardianCount);
                 if(main.OpportunistCount > 0) text += String.Format("\n{0,-14}:{1}",main.getRoleName(CustomRoles.Opportunist),main.OpportunistCount);
                 if(main.SnitchCount > 0) text += String.Format("\n{0,-14}:{1}",main.getRoleName(CustomRoles.Snitch),main.SnitchCount);
+                if(main.LoversCount == 2) text += String.Format("\n{0,-14}:{1}",main.getRoleName(CustomSubRoles.Lovers),main.LoversCount);
                 main.SendToAll(text);
                 text = "設定:";
                 if(main.VampireCount > 0) text += String.Format("\n{0}:{1}",main.getLang(lang.VampireKillDelay),main.VampireKillDelay);
@@ -884,6 +902,8 @@ namespace TownOfHost
         SnitchInfo,
         FoxInfo,
         TrollInfo,
+        //サブ役職解説(短)
+        LoversInfo,
         //役職解説(長)
         JesterInfoLong,
         MadmateInfoLong,
@@ -898,6 +918,8 @@ namespace TownOfHost
         SnitchInfoLong,
         FoxInfoLong,
         TrollInfoLong,
+        //サブ役職解説(長)
+        LoversInfoLong,
         //モード名
         HideAndSeek,
         SyncButtonMode,
