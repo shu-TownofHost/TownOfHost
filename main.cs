@@ -509,6 +509,7 @@ namespace TownOfHost
             writer.Write(SnitchCount);
             writer.Write(FoxCount);
             writer.Write(TrollCount);
+            writer.Write(LoversCount);
 
 
             writer.Write(IsHideAndSeek);
@@ -716,6 +717,7 @@ namespace TownOfHost
                 {lang.MayorInfo, "人外を追放しろ"},
                 {lang.OpportunistInfo, "とにかく生き残れ"},
                 {lang.SnitchInfo, "タスクを完了させ、人外を暴け"},
+                {lang.LoversInfo, "恋人と幸せに"},
                 //役職解説(長)
                 {lang.JesterInfoLong, "ジェスター:\n会議で追放されたときに単独勝利となる第三陣営の役職。追放されずにゲームが終了するか、キルされると敗北となる。"},
                 {lang.MadmateInfoLong, "狂人:\nインポスター陣営に属するが、インポスターが誰なのかはわからない。インポスターからも狂人が誰なのかはわからない。キルやサボタージュは使えないが、通気口を使うことができる。"},
@@ -730,6 +732,7 @@ namespace TownOfHost
                 {lang.SnitchInfoLong, "スニッチ:\nタスクを完了させると人外の名前が赤色に変化する。スニッチのタスクが少なくなると人外からスニッチの名前が変わって見える。"},
                 {lang.FoxInfoLong, "狐(HideAndSeek):\nトロールを除くいずれかの陣営が勝利したときに生き残っていれば、勝利した陣営に追加で勝利することができる。"},
                 {lang.TrollInfoLong, "トロール(HideAndSeek):\nインポスターにキルされたときに単独勝利となる。この場合、狐が生き残っていても狐は敗北となる。"},
+                {lang.LoversInfoLong, "ラバーズ(Lovers):\nTODO"},
                 //モード名
                 {lang.HideAndSeek, "HideAndSeek"},
                 {lang.NoGameEnd, "NoGameEnd"},
