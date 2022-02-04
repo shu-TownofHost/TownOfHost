@@ -28,6 +28,8 @@ namespace TownOfHost
         //Client Options
         public static ConfigEntry<bool> HideCodes {get; private set;}
         public static ConfigEntry<bool> JapaneseRoleName {get; private set;}
+        
+        public static ConfigEntry<bool> JapaneseSubRoleName {get; private set;}
         public static ConfigEntry<bool> AmDebugger {get; private set;}
 
         public static LanguageUnit EnglishLang {get; private set;}
@@ -148,11 +150,9 @@ namespace TownOfHost
             return text;
         }
         public static string getRoleName(CustomSubRoles role) {
-            // TryGetValue が正常に動作しないため暫定処理
-            if(role == CustomSubRoles.Lovers) {return "Lovers";}
-            
+            // TODO:要動作確認
             var dic = TranslationController.Instance.CurrentLanguage.languageID == SupportedLangs.Japanese &&
-            JapaneseRoleName.Value == true ? JapaneseSubRoleNames : EnglishSubRoleNames;
+            JapaneseSubRoleName.Value == true ? JapaneseSubRoleNames : EnglishSubRoleNames;
             var isSuccess = dic.TryGetValue(role, out var text);
             return isSuccess ? text : "<Not Found:" + role.ToString() + ">";
         }
@@ -666,6 +666,7 @@ namespace TownOfHost
             //Client Options
             HideCodes = Config.Bind("Client Options", "Hide Game Codes", false);
             JapaneseRoleName = Config.Bind("Client Options", "Japanese Role Name", false);
+            JapaneseSubRoleName = Config.Bind("Client Options", "Japanese SubRole Name", false);
 
             Logger = BepInEx.Logging.Logger.CreateLogSource("TownOfHost");
 
@@ -683,6 +684,7 @@ namespace TownOfHost
             TrollCount = 0;
             FoxCount = 0;
             AllPlayerCustomRoles = new Dictionary<byte, CustomRoles>();
+            AllPlayerCustomSubRoles = new Dictionary<byte, CustomSubRoles>();
 
             SyncButtonMode = false;
             SyncedButtonCount = 10;
@@ -901,6 +903,16 @@ namespace TownOfHost
                 {CustomRoles.Snitch, "スニッチ"},
                 {CustomRoles.Fox, "狐"},
                 {CustomRoles.Troll, "トロール"},
+            };
+
+            EnglishSubRoleNames = new Dictionary<CustomSubRoles, string>(){
+                {CustomSubRoles.Default, "Vanilla"},
+                {CustomSubRoles.Lovers, "Lovers"},
+            };
+
+            JapaneseSubRoleNames = new Dictionary<CustomSubRoles, string>(){
+                {CustomSubRoles.Default, "Vanilla"},
+                {CustomSubRoles.Lovers, "ラバーズ"},
             };
 
             Harmony.PatchAll();

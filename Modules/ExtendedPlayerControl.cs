@@ -55,6 +55,7 @@ namespace TownOfHost {
             else return CustomRoles.Default;
         }
         public static CustomSubRoles getCustomSubRole(this PlayerControl player) {
+            // TODO:要動作確認
             var cRoleFound = main.AllPlayerCustomSubRoles.TryGetValue(player.PlayerId, out var cRole);
             if(cRoleFound) return cRole;
             else return CustomSubRoles.Default;
