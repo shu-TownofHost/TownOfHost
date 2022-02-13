@@ -215,7 +215,7 @@ namespace TownOfHost
                 AssignCustomRolesFromList(CustomRoles.Vampire, Impostors);
                 AssignCustomRolesFromList(CustomRoles.MadScientist, Scientists);
                 AssignCustomRolesFromList(CustomRoles.BountyHunter, Impostors);
-                AssignCustomRolesFromList(CustomRoles.Witch, Shapeshifters);
+                AssignCustomRolesFromList(CustomRoles.Witch, Impostors);
 
                 //RPCによる同期
                 foreach(var pair in main.AllPlayerCustomRoles) {
@@ -229,7 +229,7 @@ namespace TownOfHost
                 EngineerNum -= main.MadmateCount + main.TerroristCount;
                 roleOpt.SetRoleRate(RoleTypes.Engineer, EngineerNum, roleOpt.GetChancePerGame(RoleTypes.Engineer));
 
-                 int ScientistNum = roleOpt.GetNumPerGame(RoleTypes.Scientist);
+                int ScientistNum = roleOpt.GetNumPerGame(RoleTypes.Scientist);
                 ScientistNum -= main.MadScientistCount;
                 roleOpt.SetRoleRate(RoleTypes.Scientist, ScientistNum, roleOpt.GetChancePerGame(RoleTypes.Scientist));
 
