@@ -200,7 +200,7 @@ namespace TownOfHost
                     break;        
 
                 case "Madscientist":
-                case "da":
+                case "ms":
                     main.SendToAll(main.getLang(lang.MadScientistInfoLong));
                     break;
 
