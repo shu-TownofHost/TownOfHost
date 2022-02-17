@@ -186,7 +186,7 @@ namespace TownOfHost
                 int SheriffCount,
                 int BountyHunterCount,
                 int WitchCount,
-                int ShapeMaster,
+                int ShapeMasterCount,
                 int FoxCount,
                 int TrollCount,
                 bool isHideAndSeek,
