@@ -276,7 +276,7 @@ namespace TownOfHost
                         {
                             if(__instance.AllTasksCompleted() && __instance.isSnitch())
                             {
-                                if(t.isImpostor() || t.isShapeshifter() || t.isVampire() || t.isBountyHunter())
+                                if(t.isImpostor() || t.isShapeshifter() || t.isVampire() || t.isBountyHunter()|| t.isShapeMaster())
                                 {
                                     if(!t.AmOwner) t.nameText.text = $"<color={t.getRoleColorCode()}>{t.name}</color>";
                                 }
@@ -285,7 +285,7 @@ namespace TownOfHost
                     }else{//タスクなしの陣営
                         foreach(var t in PlayerControl.AllPlayerControls)
                         {
-                            if(__instance.isImpostor() || __instance.isShapeshifter() || __instance.isVampire() || __instance.isBountyHunter())
+                            if(__instance.isImpostor() || __instance.isShapeshifter() || __instance.isVampire() || __instance.isBountyHunter() || __instance.isShapeMaster())
                             {
                                 var ct = 0;
                                 foreach(var task in t.myTasks) if(task.IsComplete)ct++;

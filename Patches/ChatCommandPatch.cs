@@ -212,6 +212,10 @@ namespace TownOfHost
                 case "witch":
                 case "wi":
                     main.SendToAll(main.getLang(lang.WitchInfoLong));
+
+                break;case "ShapeMaster":
+                case "sm":
+                    main.SendToAll(main.getLang(lang.ShapeMasterInfoLong));
                     break;
 
                 case "fox":

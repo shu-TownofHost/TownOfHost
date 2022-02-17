@@ -34,6 +34,7 @@ namespace TownOfHost
                         OptionPages.BountyHunter,
                         OptionPages.Witch,
                         OptionPages.Mafia,
+                        OptionPages.ShapeMaster,
                         OptionPages.Madmate,
                         OptionPages.MadGuardian,
                         OptionPages.Jester,
@@ -159,6 +160,14 @@ namespace TownOfHost
                         new List<OptionPages>(){},
                         OptionPages.roles,
                         i => main.SetRoleCount(CustomRoles.Witch, i)
+                    )},
+                    {OptionPages.ShapeMaster, new PageObject(
+                        () => $"<color={main.getRoleColorCode(CustomRoles.ShapeMaster)}>{main.getRoleName(CustomRoles.ShapeMaster)}</color>: {main.ShapeMasterCount}",
+                        true,
+                        () => {main.SetRoleCountToggle(CustomRoles.ShapeMaster);},
+                        new List<OptionPages>(){},
+                        OptionPages.roles,
+                        i => main.SetRoleCount(CustomRoles.ShapeMaster, i)
                     )},
                     {OptionPages.AdvancedRoleOptions, new PageObject(
                         lang.AdvancedRoleOptions,
@@ -701,6 +710,7 @@ namespace TownOfHost
                 Snitch,
                 BountyHunter,
                 Witch,
+                ShapeMaster,
                 VampireOptions,
                 AdvancedRoleOptions,
                     VampireKillDelay,
